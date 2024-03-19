@@ -1,0 +1,16 @@
+
+        .imagenes-habitacion {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .imagen-habitacion {
+            width: 150px;
+            height: 150px;
+            object-fit:fill;
+        }
+         /* Estilos para ocultar la sección de carga de fotos */
+         #seccion_foto_deposito {
+            display: none;
+        }
