@@ -1,0 +1,220 @@
+html {
+    height: 100%;
+}
+body {
+    margin:0;
+    padding:0;
+    font-family: sans-serif;
+    background: linear-gradient(#141e30, #243b55);
+}
+
+.login-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    padding: 40px;
+    background: rgba(0,0,0,.5);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0,0,0,.6);
+    border-radius: 10px;
+}
+
+.login-box h2 {
+    margin: 0 0 30px;
+    padding: 0;
+    color: #fff;
+    text-align: center;
+}
+
+.login-box .user-box {
+    position: relative;
+}
+
+.login-box .user-box input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #fff;
+    outline: none;
+    background: transparent;
+}
+
+.login-box .user-box label {
+    position: absolute;
+    top:0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.login-box .user-box input:focus ~ label,
+.login-box .user-box input:valid ~ label {
+    top: -20px;
+    left: 0;
+    color: #03e9f4;
+    font-size: 12px;
+}
+
+.login-box .btn-box {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.login-box .btn-box input[type="submit"],
+.login-box .btn-box a {
+    display: inline-block;
+    padding: 10px 20px;
+    color: #03e9f4;
+    font-size: 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    background: transparent;
+    border: 2px solid #03e9f4;
+    border-radius: 25px;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    cursor: pointer;
+}
+
+.login-box .btn-box input[type="submit"]:hover,
+.login-box .btn-box a:hover {
+    color: #fff;
+    background: #03e9f4;
+}
+
+.login-box .btn-box input[type="submit"]:before,
+.login-box .btn-box a:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 0;
+    height: 100%;
+    background: #03e9f4;
+    z-index: -1;
+    transition: all 0.3s ease-in-out;
+}
+
+.login-box .btn-box input[type="submit"]:hover:before,
+.login-box .btn-box a:hover:before {
+    left: 0;
+    width: 100%;
+}
+
+.error-message {
+    background-color: #ff3333; /* Rojo */
+    color: #ffffff; /* Blanco */
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+.register-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    padding: 40px;
+    background: rgba(0,0,0,.5);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0,0,0,.6);
+    border-radius: 10px;
+}
+
+.register-box h2 {
+    margin: 0 0 30px;
+    padding: 0;
+    color: #fff;
+    text-align: center;
+}
+
+.register-box .user-box {
+    position: relative;
+}
+
+.register-box .user-box input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #fff;
+    outline: none;
+    background: transparent;
+}
+
+.register-box .user-box label {
+    position: absolute;
+    top:0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.register-box .user-box input:focus ~ label,
+.register-box .user-box input:valid ~ label {
+    top: -20px;
+    left: 0;
+    color: #03e9f4;
+    font-size: 12px;
+}
+
+.register-box .btn-box {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.register-box .btn-box input[type="submit"],
+.register-box .btn-box a {
+    display: inline-block;
+    padding: 10px 20px;
+    color: #03e9f4;
+    font-size: 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    background: transparent;
+    border: 2px solid #03e9f4;
+    border-radius: 25px;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    cursor: pointer;
+}
+
+.register-box .btn-box input[type="submit"]:hover,
+.register-box .btn-box a:hover {
+    color: #fff;
+    background: #03e9f4;
+}
+
+.register-box .btn-box input[type="submit"]:before,
+.register-box .btn-box a:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 0;
+    height: 100%;
+    background: #03e9f4;
+    z-index: -1;
+    transition: all 0.3s ease-in-out;
+}
+
+.register-box .btn-box input[type="submit"]:hover:before,
+.register-box .btn-box a:hover:before {
+    left: 0;
+    width: 100%;
+}

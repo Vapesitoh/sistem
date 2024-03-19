@@ -1,0 +1,329 @@
+.b1 .owl-item .b1-lanza-video {
+    opacity: 0;
+    transition: opacity 900ms all 700ms;
+}
+.b1 .owl-item .b1-text h2 {
+    opacity: 0;
+    transition: opacity 900ms all 800ms;
+}
+.b1 .owl-item .b1-text strong {
+    opacity: 0;
+    transition: opacity 900ms all 900ms;
+}
+.b1 .owl-item .g-button {
+    opacity: 0;
+    transition: opacity 900ms all 1000ms;
+}
+.b1 .owl-item.active .b1-lanza-video {
+    opacity: 1;
+}
+.b1 .owl-item.active .g-button {
+    opacity: 1;
+}
+.b1 .owl-item.active .b1-text h2 {
+    opacity: 1;
+}
+.b1 .owl-item.active .b1-text strong {
+    opacity: 1;
+}
+.owl-nav {
+    display: none;
+}
+.owl-dots {
+    position: absolute;
+    width: 100%;
+    max-width: 1180px;
+    left: 0px;
+    right: 0px;
+    bottom: 35px;
+    margin: auto;
+    z-index: 100;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    box-sizing: border-box;
+}
+.owl-dots .owl-dot {
+    width: 72px;
+    height: 4px;
+    background-color: #fff;
+    margin-left: 10px;
+    cursor: pointer;
+    position: relative;
+}
+.owl-dots .owl-dot span {
+    position: absolute;
+    bottom: 100%;
+    color: #fff;
+    width: 100%;
+    display: block;
+    text-align: center;
+    opacity: 0;
+    font-family: t-1;
+    font-size: 16px;
+}
+.owl-dots .owl-dot.active {
+    height: 8px;
+}
+.owl-dots .owl-dot.active span {
+    opacity: 1;
+}
+.owl-dots .owl-dot:first-child {
+    margin-left: 0;
+}
+.b1-slide {
+    min-height: 450px;
+    height: calc(100vh - 120px);
+    position: relative;
+}
+.b1-slide.active_video .b1-inner-video {
+    opacity: 1;
+    visibility: visible;
+}
+.b1-bg {
+    
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 95%;
+    background-size: cover;
+    background-position: center center;
+}
+.b1-bg:before, .b1-bg:after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    display: block;
+}
+.b1-bg:before {
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%);
+}
+.b1-cnt {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    max-width: 1100px;
+    width: 100%;
+    margin: auto;
+}
+.b1-center {
+    max-width: 400px;
+    width: 100%;
+    margin: 0 auto 0 0;
+}
+.b1-text {
+    margin-bottom: 50px;
+}
+.b1-text h2 {
+    font-size: 22px;
+    color: #fff;
+    margin: 0;
+    font-family: 'Arial';
+    line-height: 1.2;
+}
+.b1-text strong {
+    font-size: 40px;
+    font-weight: bold;
+    font-family: 'Arial';
+    display: block;
+}
+.b1-lanza-video, .b1-bottom {
+    margin: 0 auto 0 0;
+}
+.b1-lanza-video {
+    font-size: 56px;
+    color: #fff;
+    cursor: pointer;
+}
+.b1-lanza-video i {
+    display: block;
+    margin-bottom: 25px;
+}
+.b1-inner-video {
+    position: absolute;
+    left: 0;
+    top: -12.5%;
+    width: 100%;
+    padding-bottom: 56.3%;
+    overflow: hidden;
+    transition: all 500ms;
+    pointer-events: none;
+    opacity: 0;
+    z-index: 12;
+    visibility: hidden;
+}
+.b1-inner-video iframe {
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+@media screen and (max-width: 1440px) {
+    .b1 .owl-dots {
+        padding-right: 30px;
+    }
+    .b1-text h2 {
+        font-size: 20px;
+    }
+    .b1-text strong {
+        font-size: 30px;
+    }
+}
+@media screen and (max-width: 1024px) {
+    .b1-lanza-video i {
+        display: none;
+    }
+}
+@media screen and (max-width: 768px) {
+    .b1-text h2 {
+        font-size: 18px;
+    }
+    .b1-text strong {
+        font-size: 25px;
+    }
+}
+@media screen and (max-width: 767px) {
+    .b1-slide {
+        height: 450px;
+    }
+    .b1-text {
+        margin-bottom: 20px;
+    }
+    .b1 .owl-dots {
+        padding-right: 0;
+        justify-content: center;
+    }
+    .b1 .owl-dot {
+        width: 50px;
+    }
+    .b1 .owl-dot span {
+        font-size: 12px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+  /* 
+** Layout, Text & Colors 
+*/
+
+body {
+    background: #150f21;
+    font-size: 18px;
+  }
+  
+  p {
+    line-height: 1.5;
+  }
+  
+  .container1 {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  /* Cards */
+  .card-column {
+    width: 50%;
+    float: left;
+    padding: 4%;
+    box-sizing: border-box;
+  }
+  
+  .column-1 {
+    padding-top: 100px;
+  }
+  
+  .card {
+    width: 92%;
+      max-width: 340px;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+      background: #EB5160;
+      color: #fff;
+      cursor: pointer;
+      margin-bottom: 20px; /* Ajuste del margen inferior */
+  }
+  
+  /* Asegurarse de que el footer tenga un clear */
+  footer {
+      clear: both;
+  }
+  
+  .border {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 6px;
+    border: 1px solid #fff;
+    opacity: 0.5;
+    left: -6px;
+    top: -6px;
+  }
+  
+  .card h1 {
+    position: relative;
+    padding: 190px 0px 100px 10px;
+    width: 90%;
+  }
+  
+  .card > img {
+    width: 75%;
+    height: 50%;
+    position: absolute;
+    top: -6%;
+    left: -6%;
+  }
+  
+  .card-color-0 {
+    background-color: #EB5160;
+  }
+  
+  .card-color-1 {
+    background-color: #8F3985;
+  }
+  
+  .card-color-2 {
+    background-color: #8DAA91;
+  }
+  
+  .card-color-3 {
+    background-color: #888DA7;
+  }
+ /* Cards */
+.card-column {
+    width: 50%; /* Inicialmente 50% del ancho de la ventana */
+    float: left;
+    padding: 2%; /* Reducir el espacio interno para adaptarse a pantallas más pequeñas */
+    box-sizing: border-box;
+}
+
+/* Estilos adicionales para dispositivos móviles */
+@media only screen and (max-width: 768px) {
+    .card-column {
+        width: 100%; /* Cambiar a ocupar todo el ancho en dispositivos móviles */
+        padding: 4%; /* Ajustar el espacio interno */
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .card-column {
+        padding: 6%; /* Ajustar aún más el espacio interno para pantallas muy pequeñas */
+    }
+}
