@@ -31,6 +31,7 @@ if ($rolUsuario != 'Empleado') {
     exit();
 }
 ?>
+<link rel="icon" type="image/png" href="./assets/img/favicon.png">
 <body class="g-sidenav-show bg-gray-100">
     <?php include 'include/navbar.php'; ?>
 
@@ -47,7 +48,7 @@ if ($rolUsuario != 'Empleado') {
                                 <thead>
                                     <tr>
                                         <th class="strong-black-text text-center">Título</th>
-                                        <th class="strong-black-text text-center">Texto</th>
+                          
                                         <th class="strong-black-text text-center">Imagen</th>
                                         <th class="strong-black-text text-center">Descripción</th>
                                         <th class="strong-black-text text-center">Estado</th>
@@ -68,15 +69,24 @@ if ($rolUsuario != 'Empleado') {
         .strong-black-text {
             color: #000;
             font-weight: bold;
-        }
+        }.hidden {
+    display: none;
+    }
+
     </style>
 
     <!-- Importar Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <!-- Importar SweetAlert2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <!-- Script jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="./assets/js/core/popper.min.js"></script>
+    <script src="./assets/js/core/bootstrap.min.js"></script>
+    <script src="./assets/js/plugins/perfect-scrollbar.min.js"></script>
+    <script src="./assets/js/plugins/smooth-scrollbar.min.js"></script>
+    <script src="./assets/js/plugins/chartjs.min.js"></script>
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="./assets/js/argon-dashboard.min.js?v=2.0.4"></script>
 
     <script>
         $(document).ready(function () {
@@ -94,7 +104,7 @@ if ($rolUsuario != 'Empleado') {
                             var fila = `
                                 <tr>
                                     <td class="strong-black-text text-center align-middle">${inicio.titulo}</td>
-                                    <td class="strong-black-text text-center align-middle">${texto}</td>
+                                    <td class="strong-black-text text-center align-middle hidden">${texto}</td>
                                     <td class="strong-black-text text-center align-middle"><img src="${inicio.imagen}" alt="Imagen Inicio" style="max-width: 150px; max-height: 150px;"></td>
                                     <td class="strong-black-text text-center align-middle">${descripcion}</td>
                                     <td class="strong-black-text align-middle text-center">${inicio.estado == 1 ? 'Activo' : 'Desactivado'}</td>

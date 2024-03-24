@@ -31,25 +31,34 @@ if ($rolUsuario != 'Empleado') {
     exit();
 }
 ?>
-<style>
-    .strong-black-text {
-        color: #000;
-        font-weight: bold;
-    }
+<!DOCTYPE html>
+<html lang="es">
 
-    /* Reducir el espacio entre las filas */
-    .table tbody tr {
-        margin-bottom: -5px; /* Ajusta este valor según sea necesario */
-    }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="./assets/img/favicon.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <style>
+        .strong-black-text {
+            color: #000;
+            font-weight: bold;
+        }
 
-    /* Compactar el contenido verticalmente */
-    .table tbody tr td {
-        padding-top: 5px; /* Ajusta este valor según sea necesario */
-        padding-bottom: 5px; /* Ajusta este valor según sea necesario */
-    }
-</style>
+        /* Reducir el espacio entre las filas */
+        .table tbody tr {
+            margin-bottom: -5px; /* Ajusta este valor según sea necesario */
+        }
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        /* Compactar el contenido verticalmente */
+        .table tbody tr td {
+            padding-top: 5px; /* Ajusta este valor según sea necesario */
+            padding-bottom: 5px; /* Ajusta este valor según sea necesario */
+        }
+    </style>
+</head>
+
 <body class="g-sidenav-show bg-gray-100">
     <?php include 'include/navbar.php'; ?>
     <div class="container-fluid py-4">
@@ -65,11 +74,12 @@ if ($rolUsuario != 'Empleado') {
                                 <thead>
                                     <tr>
                                         <th class="strong-black-text text-center">Título</th>
-                                        <th class="strong-black-text text-center">Imágenes</th>
+                                        <th class="strong-black-text text-center">Imagen</th>
                                         <th class="strong-black-text text-center">Descripción</th>
                                         <th class="strong-black-text text-center">Precio</th>
                                         <th class="strong-black-text text-center">Categoría</th>
                                         <th class="strong-black-text text-center">Estado</th>
+                                        <th class="text-secondary opacity-7"></th> <!-- Nueva columna para el botón Editar -->
                                         <th class="text-secondary opacity-7"></th> <!-- Nueva columna para el botón Borrar -->
                                         <th class="text-secondary opacity-7"></th> <!-- Nueva columna para el botón Deshabilitar/Habilitar -->
                                     </tr>
@@ -82,12 +92,7 @@ if ($rolUsuario != 'Empleado') {
             </div>
         </div>
     </div>
-    <style>
-        .strong-black-text {
-            color: #000;
-            font-weight: bold;
-        }
-    </style>
+
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="./assets/js/core/popper.min.js"></script>
@@ -96,9 +101,20 @@ if ($rolUsuario != 'Empleado') {
     <script src="./assets/js/plugins/smooth-scrollbar.min.js"></script>
     <script src="./assets/js/plugins/chartjs.min.js"></script>
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="./assets/js/argon-dashboard.min.js?v=2.0.4"></script>
     <script>
         $(document).ready(function() {
+            // Función para dividir una cadena en segmentos de n palabras
+            function dividirEnSegmentos(cadena, n) {
+                var palabras = cadena.split(' ');
+                var segmentos = [];
+                for (var i = 0; i < palabras.length; i += n) {
+                    segmentos.push(palabras.slice(i, i + n).join(' '));
+                }
+                return segmentos.join('<br>');
+            }
+
             function cargarComida() {
                 $.ajax({
                     url: 'controlador/consulta_comida.php',
@@ -107,13 +123,15 @@ if ($rolUsuario != 'Empleado') {
                     success: function(data) {
                         $('#tabla-comida tbody').empty();
                         data.forEach(function(comida) {
+                            // Dividir la descripción en segmentos de 11 palabras
+                            var descripcionSegmentada = dividirEnSegmentos(comida.descripcion, 11);
                             var fila = `
                                 <tr>
                                     <td class="strong-black-text text-center align-middle">${comida.titulo}</td>
                                     <td class="strong-black-text text-center text-xs font-weight-bold mb-0">
                                         <img src="${comida.imagenes}" alt="Imágenes Comida" style="max-width: 150px; max-height: 150px;">
                                     </td>
-                                    <td class="strong-black-text text-center text-center align-middle">${comida.descripcion}</td>
+                                    <td class="strong-black-text text-center text-center align-middle">${descripcionSegmentada}</td>
                                     <td class="strong-black-text text-center text-center align-middle">${comida.precio}</td>
                                     <td class="strong-black-text text-center text-center align-middle">${comida.categoria}</td>
                                     <td class="strong-black-text align-middle text-center">${comida.estado == 1 ? 'Activo' : 'Desactivado'}</td>
@@ -122,26 +140,26 @@ if ($rolUsuario != 'Empleado') {
                                             <i class="bi bi-trash"></i> <!-- Ícono de trash -->
                                         </button>
                                     </td>
-
                                     <td class="strong-black-text align-middle text-center">
-                                            <div class="form-check form-switch">
+                                        <div class="form-check form-switch">
                                             <input class="form-check-input toggle-comida" type="checkbox" id="toggle-${comida.id}" data-id="${comida.id}" ${comida.estado == 1 ? 'checked' : ''}>
                                             <label class="form-check-label" for="toggle-${comida.id}">
                                                 ${comida.estado == 1 ? 'Activo' : 'Desactivado'}
                                             </label>
                                         </div>
                                     </td>
-
+                                </tr>
                             `;
                             $('#tabla-comida tbody').append(fila);
                         });
                     },
-                    error: function(xhr, status, error) {
+                    error: function(xhr, status, error, error) {
                         console.error(xhr.responseText);
                     }
                 });
             }
             cargarComida();
+            // Evento click para el botón de borrar
             $(document).on('click', '.btn-borrar', function() {
                 var comidaId = $(this).data('id');
 
@@ -156,6 +174,7 @@ if ($rolUsuario != 'Empleado') {
                     cancelButtonText: 'Cancelar'
                 }).then((result) => {
                     if (result.isConfirmed) {
+                        // Llamada AJAX para borrar la comida
                         $.ajax({
                             url: 'controlador/borrar_comida.php',
                             type: 'POST',
@@ -188,7 +207,6 @@ if ($rolUsuario != 'Empleado') {
                 });
             });
 
-
             $(document).on('change', '.toggle-comida', function() {
                 var comidaId = $(this).data('id');
                 var estado = this.checked ? 1 : 0; // Obtener el nuevo estado
@@ -212,5 +230,7 @@ if ($rolUsuario != 'Empleado') {
             });
         });
     </script>
-
 </body>
+
+</html>
+

@@ -30,7 +30,7 @@ $reserva_activa = mysqli_fetch_assoc($result_reserva_activa);
 ?>
 
 <?php include 'include/navbar.php';  ?>
-
+<link rel="icon" type="image/png" href="./assets/img/favicon.png">
 
 <style>
    .card-img-top {

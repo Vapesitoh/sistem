@@ -32,108 +32,123 @@ $habitacion = mysqli_fetch_assoc($result_habitacion);
 
 if (!$habitacion) {
     // Si la habitación no existe en la base de datos, redirigir a alguna página de error
-    header("Location: error.php");
+    header("Location: ..php");
     exit();
 }
 
 // Cerrar la conexión
 mysqli_close($conexion);
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reservar Habitación</title>
+    <link rel="icon" type="image/png" href="./assets/img/favicon.png">
     <link rel="stylesheet" href="./css/reservaciones.css">
 </head>
+
 <body class="g-sidenav-show bg-gray-100">
-    <?php include 'include/navbar.php'; // Incluir el navbar.php ?>
+    <?php include 'include/navbar.php'; // Incluir el navbar.php 
+    ?>
     <div class="container py-4">
         <h2 class="mb-4">Reservar Habitación</h2>
         <div class="containerxd">
-            
+
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
                         <!-- Aquí mostramos las imágenes de la habitación -->
                         <div class="imagenes-habitacion">
-                            <?php if ($habitacion['foto1']): ?>
+                            <?php if ($habitacion['foto1']) : ?>
                                 <img src="<?php echo $habitacion['foto1']; ?>" class="imagen-habitacion" alt="Foto de la habitación">
                             <?php endif; ?>
-                            <?php if ($habitacion['foto2']): ?>
+                            <?php if ($habitacion['foto2']) : ?>
                                 <img src="<?php echo $habitacion['foto2']; ?>" class="imagen-habitacion" alt="Foto de la habitación">
                             <?php endif; ?>
-                            <?php if ($habitacion['foto3']): ?>
+                            <?php if ($habitacion['foto3']) : ?>
                                 <img src="<?php echo $habitacion['foto3']; ?>" class="imagen-habitacion" alt="Foto de la habitación">
                             <?php endif; ?>
                         </div>
-            </div>
-                </div>
-                <div class="col-md-6">
-                    <form id="reservacionForm" action="./controlador/reservar_habitacion.php" method="POST" enctype="multipart/form-data">
-                        <?php if ($datos_usuario): ?>
-                            <input type="hidden" name="usuario_id" value="<?php echo $datos_usuario['id']; ?>">
+                    </div>
+                    <div class="col-md-6">
+                        <form id="reservacionForm" action="./controlador/reservar_habitacion.php" method="POST" enctype="multipart/form-data">
+                            <?php if ($datos_usuario) : ?>
+                                <input type="hidden" name="usuario_id" value="<?php echo $datos_usuario['id']; ?>">
+                                <div class="form-group">
+                                    <label for="nombre_usuario">Nombre de usuario:</label>
+                                    <input type="text" class="form-control" id="nombre_usuario" name="nombre_usuario" value="<?php echo $datos_usuario['nombres']; ?>" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="numero_telefono">Número de Teléfono:</label>
+                                    <input type="text" class="form-control" id="numero_telefono" name="numero_telefono" value="<?php echo $datos_usuario['numero_telefono']; ?>" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cedula">Cédula:</label>
+                                    <input type="text" class="form-control" id="cedula" name="cedula" value="<?php echo $datos_usuario['cedula']; ?>" readonly>
+                                </div>
+                            <?php endif; ?>
                             <div class="form-group">
-                                <label for="nombre_usuario">Nombre de usuario:</label>
-                                <input type="text" class="form-control" id="nombre_usuario" name="nombre_usuario" value="<?php echo $datos_usuario['nombres']; ?>" readonly>
+                                <label for="numero">Número de habitación:</label>
+                                <input type="text" class="form-control" id="numero" name="numero" value="<?php echo $habitacion['id']; ?>" readonly>
                             </div>
                             <div class="form-group">
-                                <label for="numero_telefono">Número de Teléfono:</label>
-                                <input type="text" class="form-control" id="numero_telefono" name="numero_telefono" value="<?php echo $datos_usuario['numero_telefono']; ?>" readonly>
+                                <label for="tipo">Tipo de habitación:</label>
+                                <input type="text" class="form-control" id="tipo" name="tipo" value="<?php echo $habitacion['tipo']; ?>" readonly>
                             </div>
                             <div class="form-group">
-                                <label for="cedula">Cédula:</label>
-                                <input type="text" class="form-control" id="cedula" name="cedula" value="<?php echo $datos_usuario['cedula']; ?>" readonly>
+                                <label for="precio">Precio por adulto por día:</label>
+                                <input type="text" class="form-control" id="precio_adulto" name="precio_adulto" value="20" readonly>
                             </div>
-                        <?php endif; ?>
-                        <div class="form-group">
-                            <label for="numero">Número de habitación:</label>
-                            <input type="text" class="form-control" id="numero" name="numero" value="<?php echo $habitacion['id']; ?>" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="tipo">Tipo de habitación:</label>
-                            <input type="text" class="form-control" id="tipo" name="tipo" value="<?php echo $habitacion['tipo']; ?>" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="precio">Precio por día:</label>
-                            <input type="text" class="form-control" id="precio" name="precio" value="<?php echo $habitacion['precio']; ?>" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="fecha_reservacion">Fecha y Hora de Reservación:</label>
-                            <input type="datetime-local" class="form-control" id="fecha_reservacion" name="fecha_reservacion" min="<?php echo date('Y-m-d\TH:i'); ?>" onchange="calcularPrecioTotal()" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="fecha_entrega">Fecha y Hora de Entrega:</label>
-                            <input type="datetime-local" class="form-control" id="fecha_entrega" name="fecha_entrega" min="<?php echo date('Y-m-d\TH:i'); ?>" onchange="calcularPrecioTotal()" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="precio_total">Total a pagar:</label>
-                            <input type="text" class="form-control" id="precio_total" name="precio_total" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="metodo_pago">Método de Pago:</label>
-                            <select class="form-control" id="metodo_pago" name="metodo_pago" onchange="mostrarSeccionFotoDeposito(this.value)" required>
-                                <option value="">Seleccionar Método de Pago</option>
-                                <option value="Efectivo">Efectivo</option>
-                                <option value="Depósito">Depósito</option>
-                            </select>
-                        </div>
-                        <!-- Sección para subir foto en caso de Depósito -->
-                        <div id="seccion_foto_deposito">
                             <div class="form-group">
-                                <label for="foto_deposito">Foto del Comprobante de Depósito:</label>
-                                <input type="file" class="form-control-file" id="foto_deposito" name="foto_deposito">
+                                <label for="precio">Precio por niño por día:</label>
+                                <input type="text" class="form-control" id="precio_niño" name="precio_niño" value="15" readonly>
                             </div>
-                        </div>
-                        <button type="button" onclick="validarFormulario()" class="btn btn-primary">Reservar</button>
-                        <a href="javascript:history.go(-1)" class="btn btn-secondary">Cancelar</a>
-                    </form>
+                            <div class="form-group">
+                                <label for="fecha_reservacion">Fecha y Hora de Reservación:</label>
+                                <input type="datetime-local" class="form-control" id="fecha_reservacion" name="fecha_reservacion" min="<?php echo date('Y-m-d\TH:i'); ?>" onchange="calcularPrecioTotal()" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="fecha_entrega">Fecha y Hora de Entrega:</label>
+                                <input type="datetime-local" class="form-control" id="fecha_entrega" name="fecha_entrega" min="<?php echo date('Y-m-d\TH:i'); ?>" onchange="calcularPrecioTotal()" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="adultos">Cantidadde adultos:</label>
+                                <input type="number" class="form-control" id="adultos" name="adultos" min="0" max="4" onchange="calcularPrecioTotal()" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="niños">Cantidad de niños:</label>
+                                <input type="number" class="form-control" id="niños" name="niños" min="0" max="4" onchange="calcularPrecioTotal()" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="precio_total">Total a pagar:</label>
+                                <input type="text" class="form-control" id="precio_total" name="precio_total" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="metodo_pago">Método de Pago:</label>
+                                <select class="form-control" id="metodo_pago" name="metodo_pago" onchange="mostrarSeccionFotoDeposito(this.value)" required>
+                                    <option value="">Seleccionar Método de Pago</option>
+                                    <option value="Efectivo">Efectivo</option>
+                                    <option value="Depósito">Depósito</option>
+                                </select>
+                            </div>
+                            <!-- Sección para subir foto en caso de Depósito -->
+                            <div id="seccion_foto_deposito">
+                                <div class="form-group">
+                                    <label for="foto_deposito">Foto del Comprobante de Depósito:</label>
+                                    <input type="file" class="form-control-file" id="foto_deposito" name="foto_deposito">
+                                </div>
+                            </div>
+                            <button type="button" onclick="validarFormulario()" class="btn btn-primary">Reservar</button>
+                            <a href="javascript:history.go(-1)" class="btn btn-secondary">Cancelar</a>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="./assets/js/core/popper.min.js"></script>
@@ -148,20 +163,24 @@ mysqli_close($conexion);
 
     <script>
         function calcularPrecioTotal() {
-            var precioPorDia = parseFloat(document.getElementById('precio').value);
-            var fechaReservacion = new Date(document.getElementById('fecha_reservacion').value);
-            var fechaEntrega = new Date(document.getElementById('fecha_entrega').value);
+    var precioAdulto = parseFloat(document.getElementById('precio_adulto').value);
+    var precioNiño = parseFloat(document.getElementById('precio_niño').value);
+    var adultos = parseInt(document.getElementById('adultos').value);
+    var niños = parseInt(document.getElementById('niños').value);
+    var fechaReservacion = new Date(document.getElementById('fecha_reservacion').value);
+    var fechaEntrega = new Date(document.getElementById('fecha_entrega').value);
 
-            // Calcular el número de días de reserva
-            var diferenciaFechas = fechaEntrega.getTime() - fechaReservacion.getTime();
-            var diasReserva = Math.ceil(diferenciaFechas / (1000 * 3600 * 24));
+    // Calcular el número de días de reserva
+    var diferenciaFechas = fechaEntrega.getTime() - fechaReservacion.getTime();
+    var diasReserva = Math.ceil(diferenciaFechas / (1000 * 3600 * 24));
 
-            // Calcular el precio total
-            var precioTotal = precioPorDia * diasReserva;
+    // Calcular el precio total
+    var precioTotal = (precioAdulto * adultos + precioNiño * niños) * diasReserva;
 
-            // Mostrar el precio total en el campo correspondiente
-            document.getElementById('precio_total').value = precioTotal.toFixed(2);
-        }
+    // Mostrar el precio total en el campo correspondiente
+    document.getElementById('precio_total').value = precioTotal.toFixed(2);
+}
+
 
         function mostrarSeccionFotoDeposito(valor) {
             if (valor === 'Depósito') {
@@ -176,10 +195,11 @@ mysqli_close($conexion);
 
             // Validar que el precio total sea mayor que 0.00
             if (precioTotal > 0.00) {
+                var deposito = precioTotal * 0.5;
                 // Mostrar un SweetAlert de confirmación antes de enviar el formulario
                 Swal.fire({
                     title: '¿Estás seguro?',
-                    text: '¿Deseas realizar la reserva?',
+                    text: '¿Deseas realizar la reserva? El depósito requerido es de ' + deposito.toFixed(2) + ' dólares',
                     icon: 'question',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
@@ -204,4 +224,5 @@ mysqli_close($conexion);
         }
     </script>
 </body>
+
 </html>

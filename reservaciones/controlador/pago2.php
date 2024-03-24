@@ -11,8 +11,8 @@ if (isset($_GET['id']) && isset($_POST['valor'])) {
     if ($valorPago > 0) {
         // Realizar la consulta para actualizar los pagos en la reservación
         $consulta = "UPDATE reservacion 
-                     SET segundo_pago = $valorPago
-                     WHERE id = $reservacionId AND segundo_pago IS NULL";
+                     SET tercer_pago = $valorPago
+                     WHERE id = $reservacionId AND tercer_pago IS NULL";
 
         // Ejecutar la consulta
         $resultado = mysqli_query($conexion, $consulta);

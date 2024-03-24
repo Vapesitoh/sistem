@@ -2,7 +2,7 @@
 include('../include/conexion.php');
 
 // Consultar el listado de habitaciones desde la base de datos
-$query_habitaciones = "SELECT id FROM habitaciones WHERE estado = 1";
+$query_habitaciones = "SELECT id FROM habitaciones ";
 $result_habitaciones = mysqli_query($conexion, $query_habitaciones);
 
 if (!$result_habitaciones) {

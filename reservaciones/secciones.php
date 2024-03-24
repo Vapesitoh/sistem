@@ -31,7 +31,7 @@ if ($rolUsuario != 'Empleado') {
     exit();
 }
 ?>
-
+<link rel="icon" type="image/png" href="./assets/img/favicon.png">
 <body class="g-sidenav-show bg-gray-100">
     <?php include 'include/navbar.php'; ?>
 
@@ -74,9 +74,16 @@ if ($rolUsuario != 'Empleado') {
     <!-- Importar Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <!-- Importar SweetAlert2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <!-- Script jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="./assets/js/core/popper.min.js"></script>
+    <script src="./assets/js/core/bootstrap.min.js"></script>
+    <script src="./assets/js/plugins/perfect-scrollbar.min.js"></script>
+    <script src="./assets/js/plugins/smooth-scrollbar.min.js"></script>
+    <script src="./assets/js/plugins/chartjs.min.js"></script>
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="./assets/js/argon-dashboard.min.js?v=2.0.4"></script>
 
     <script>
         $(document).ready(function () {

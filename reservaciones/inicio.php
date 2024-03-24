@@ -29,14 +29,16 @@ if ($rolUsuario !== 'Administrador') {
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calendario Dinámico</title>
+    <link rel="icon" type="image/png" href="./assets/img/favicon.png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.0/main.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.css">
 </head>
+
 <body class="g-sidenav-show bg-gray-100">
     <?php include 'include/navbar.php'; ?>
 
@@ -101,104 +103,113 @@ if ($rolUsuario !== 'Administrador') {
     </div>
 
     <div class="row">
-            <div class="col-lg-7 mb-lg-0 mb-4">
-        <div id="calendar-container" style="background-color: white; width: 95%; max-width: 800px; margin: auto; margin-top: 10px;">
-            <div id='calendar'></div>
+        <div class="col-lg-7 mb-lg-0 mb-4">
+            <div id="calendar-container" style="background-color: white; width: 95%; max-width: 800px; margin: auto; margin-top: 10px;">
+                <div id='calendar'></div>
+            </div>
         </div>
-        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src='./fullcalendar/dist/index.global.min.js'></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="./assets/js/core/popper.min.js"></script>
+        <script src="./assets/js/core/bootstrap.min.js"></script>
+        <script src="./assets/js/plugins/perfect-scrollbar.min.js"></script>
+        <script src="./assets/js/plugins/smooth-scrollbar.min.js"></script>
+        <script src="./assets/js/plugins/chartjs.min.js"></script>
+        <script async defer src="https://buttons.github.io/buttons.js"></script>
+        <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
+        <script src="./assets/js/argon-dashboard.min.js?v=2.0.4"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src='./fullcalendar/dist/index.global.min.js'></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var calendarEl = document.getElementById('calendar');
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    initialView: 'dayGridMonth',
+                    locale: 'es',
+                    events: {
+                        url: 'controlador/fetch_events.php',
+                        method: 'POST'
+                    },
+                    eventClick: function(info) {
+                        var habitacion_id = info.event.extendedProps.habitacion_id;
+                        var fecha_reservacion = info.event.start.toLocaleDateString();
+                        var fecha_entrega = info.event.end ? info.event.end.toLocaleDateString() : "No entregada"; // Si no hay fecha de entrega, muestra "No entregada"
 
-    <script>
-     document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
-        locale: 'es',
-        events: {
-            url: 'controlador/fetch_events.php',
-            method: 'POST' 
-        },
-        eventClick: function(info) {
-            var habitacion_id = info.event.extendedProps.habitacion_id;
-            var fecha_reservacion = info.event.start.toLocaleDateString();
-            var fecha_entrega = info.event.end ? info.event.end.toLocaleDateString() : "No entregada"; // Si no hay fecha de entrega, muestra "No entregada"
-
-            Swal.fire({
-                title: 'Detalles de la habitación',
-                html: '<p>Habitación: ' + habitacion_id + '</p><p>Fecha de reservación: ' + fecha_reservacion + '</p><p>Fecha de entrega: ' + fecha_entrega + '</p>',
-                icon: 'info',
-                confirmButtonText: 'Aceptar'
+                        Swal.fire({
+                            title: 'Detalles de la habitación',
+                            html: '<p>Habitación: ' + habitacion_id + '</p><p>Fecha de reservación: ' + fecha_reservacion + '</p><p>Fecha de entrega: ' + fecha_entrega + '</p>',
+                            icon: 'info',
+                            confirmButtonText: 'Aceptar'
+                        });
+                    }
+                });
+                calendar.render();
             });
-        }
-    });
-    calendar.render();
-});
+        </script>
 
-    </script>
+        <script>
+            $(document).ready(function() {
+                $.ajax({
+                    url: 'controlador/tarjetas.php',
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function(response) {
+                        $('#habitacion-mas-reservada').text(response.habitacion_mas_reservada);
+                        $('#total-reservas').text(response.total_reservas);
 
-<script>
-    $(document).ready(function() {
-        $.ajax({
-            url: 'controlador/tarjetas.php',
-            method: 'GET',
-            dataType: 'json',
-            success: function(response) {
-                $('#habitacion-mas-reservada').text(response.habitacion_mas_reservada);
-                $('#total-reservas').text(response.total_reservas);
-                
-                // Verificar si total_pagos es NaN o null y mostrar 0 en su lugar
-                var totalPagos = response.total_pagos;
-                if (totalPagos === null || isNaN(totalPagos)) {
-                    totalPagos = 0;
-                }
-                $('#total-pagos').text('$' + parseFloat(totalPagos).toFixed(2));
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.error('Error en la solicitud AJAX:', textStatus, errorThrown);
-            }
-        });
-    });
-</script>
+                        // Verificar si total_pagos es NaN o null y mostrar 0 en su lugar
+                        var totalPagos = response.total_pagos;
+                        if (totalPagos === null || isNaN(totalPagos)) {
+                            totalPagos = 0;
+                        }
+                        $('#total-pagos').text('$' + parseFloat(totalPagos).toFixed(2));
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error('Error en la solicitud AJAX:', textStatus, errorThrown);
+                    }
+                });
+            });
+        </script>
 
 
-    <script>
-        $(document).ready(function() {
-            $.ajax({
-                url: 'controlador/grafico.php',
-                method: 'GET',
-                dataType: 'json',
-                success: function(response) {
-                    var ctx = document.getElementById('chart-line').getContext('2d');
-                    var chart = new Chart(ctx, {
-                        type: 'line',
-                        data: {
-                            labels: response.labels,
-                            datasets: [{
-                                label: 'Reservaciones por día',
-                                data: response.datos,
-                                fill: false,
-                                borderColor: 'rgb(75, 192, 192)',
-                                tension: 0.1
-                            }]
-                        },
-                        options: {
-                            scales: {
-                                y: {
-                                    beginAtZero: true
+        <script>
+            $(document).ready(function() {
+                $.ajax({
+                    url: 'controlador/grafico.php',
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function(response) {
+                        var ctx = document.getElementById('chart-line').getContext('2d');
+                        var chart = new Chart(ctx, {
+                            type: 'line',
+                            data: {
+                                labels: response.labels,
+                                datasets: [{
+                                    label: 'Reservaciones por día',
+                                    data: response.datos,
+                                    fill: false,
+                                    borderColor: 'rgb(75, 192, 192)',
+                                    tension: 0.1
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                    y: {
+                                        beginAtZero: true
+                                    }
                                 }
                             }
-                        }
-                    });
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.error('Error en la solicitud AJAX:', textStatus, errorThrown);
-                }
+                        });
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error('Error en la solicitud AJAX:', textStatus, errorThrown);
+                    }
+                });
             });
-        });
-    </script>
+        </script>
 </body>
+
 </html>

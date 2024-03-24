@@ -49,7 +49,7 @@ if ($rolUsuario !== 'Administrador') {
         padding-bottom: 5px; /* Ajusta este valor según sea necesario */
     }
 </style>
-
+<link rel="icon" type="image/png" href="./assets/img/favicon.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <body class="g-sidenav-show bg-gray-100">
     <?php include 'include/navbar.php'; ?>

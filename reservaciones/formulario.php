@@ -1,9 +1,37 @@
+<link rel="icon" type="image/png" href="./assets/img/favicon.png">
 <?php
 include 'controlador/procesarformulario.php'; // Incluye tu archivo de procesamiento de formularios
+
 session_start();
+
+// Incluir el archivo de conexión a la base de datos
+include 'include/conexion.php';
+
+// Verificar si el usuario está autenticado
 if (!isset($_SESSION['usuario_id'])) {
     // Si el usuario no está autenticado, redirigir a index.php
     header("Location: index.php");
+    exit();
+}
+
+// Obtener el rol del usuario de la base de datos
+$usuario_id = $_SESSION['usuario_id'];
+$consultaRolUsuario = "SELECT rol FROM usuarios WHERE id = $usuario_id";
+$resultadoRolUsuario = mysqli_query($conexion, $consultaRolUsuario);
+
+if (!$resultadoRolUsuario) {
+    // Si hay un error en la consulta, redirigir a una página de error o manejar el error de alguna otra manera
+    header("Location: 403.php");
+    exit();
+}
+
+$filaRolUsuario = mysqli_fetch_assoc($resultadoRolUsuario);
+$rolUsuario = $filaRolUsuario['rol'];
+
+// Verificar si el rol del usuario es administrador
+if ($rolUsuario !== 'Administrador') {
+    // Si el usuario no es administrador, redirigir a una página de acceso denegado
+    header("Location: 403.php");
     exit();
 }
 ?>
@@ -99,9 +127,16 @@ if (!isset($_SESSION['usuario_id'])) {
         </div>
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="./assets/js/core/popper.min.js"></script>
+    <script src="./assets/js/core/bootstrap.min.js"></script>
+    <script src="./assets/js/plugins/perfect-scrollbar.min.js"></script>
+    <script src="./assets/js/plugins/smooth-scrollbar.min.js"></script>
+    <script src="./assets/js/plugins/chartjs.min.js"></script>
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="./assets/js/argon-dashboard.min.js?v=2.0.4"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
     $(document).ready(function () {

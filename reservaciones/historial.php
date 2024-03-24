@@ -28,7 +28,7 @@ if ($rolUsuario !== 'Cliente') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Historial de Reservaciones</title>
+    <link rel="icon" type="image/png" href="./assets/img/favicon.png">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body class="g-sidenav-show bg-gray-100">

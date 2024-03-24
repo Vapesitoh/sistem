@@ -24,7 +24,7 @@ if ($rolUsuario !== 'Cliente') {
     exit();
 }
 ?>
-
+<link rel="icon" type="image/png" href="./assets/img/favicon.png">
 <body class="g-sidenav-show bg-gray-100">
     <?php include 'include/navbar.php'; ?>
     <div class="container-fluid py-4">

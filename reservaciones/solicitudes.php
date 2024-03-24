@@ -36,6 +36,7 @@ $resultadoReservaciones = mysqli_query($conexion, $consultaReservaciones);
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<link rel="icon" type="image/png" href="./assets/img/favicon.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Aquí puedes incluir tus hojas de estilo CSS -->
