@@ -41,7 +41,6 @@ while ($row_seccion = mysqli_fetch_assoc($result_seccion)) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -49,16 +48,16 @@ while ($row_seccion = mysqli_fetch_assoc($result_seccion)) {
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <link rel="shortcut icon" href="reservaciones/images/favicon.png" type="">
-    <title>Centro turistico las naves</title>
+    <link rel="shortcut icon" href="reservaciones/images/favicon.png" type="image/x-icon">
+    <title>Centro turístico San Mateo</title>
     <link rel="stylesheet" type="text/css" href="reservaciones/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha512-CruCP+TD3yXzlvvijET8wV5WxxEh5H8P4cmz0RFbKK6FlZ2sYl3AEsKlLPHbniXKSrDdFewhbmBK5skbdsASbQ==" crossorigin="anonymous" />
     <link href="reservaciones/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="./reservaciones/css/font-awesome.min.css" rel="stylesheet" />
     <link href="./reservaciones/css/style.css" rel="stylesheet" />
     <link href="./reservaciones/css/responsive.css" rel="stylesheet" />
     <link rel="stylesheet" href="reservaciones/css/slider.css">
+    <link rel="stylesheet" href="reservaciones/css/index.css">
 </head>
 <body class="sub_page">
     <?php include 'reservaciones/web/navbarweb.php'; ?>
@@ -78,40 +77,49 @@ while ($row_seccion = mysqli_fetch_assoc($result_seccion)) {
                                     <strong><?php echo $inicio['descripcion']; ?></strong>
                                 </h2>
                             </div>
-                           
                         </div>
                     </div>
                 </div>
             <?php endforeach; ?>
         </div>
-<!--
-  Please note: this code is in no way ready to be used as is in production on your website. It will need to be adapted to be cross browser compliant & accessible. I just wanted to share how one might go about this effect with CSS & JS and no other dependencies
--->
-<style>
-
-</style>
- <!-- Mostrar tarjetas de sección -->
- <div class="container1">
-        <?php 
-        $i = 0; // Variable para alternar el color de la tarjeta
-        foreach ($datosSeccion as $seccion) : 
-        ?>
-            <div class="card-column">
-                <div class="card card-color-<?php echo $i; ?>">
-                    <div class="border"></div>
-                    <img src="<?php echo $seccion["imagen"]; ?>" />
-                    <h1><?php echo $seccion["titulo"]; ?></h1>
-                    <p><?php echo $seccion["descripcion"]; ?></p>
-                </div>
-            </div>
-        <?php 
-        // Alternar el color de la tarjeta
-        $i = ($i + 1) % 4; 
-        ?>
-        <?php endforeach; ?>
+    </section>
+    <div class="container">
+        <h2 style="font-size: 36px; font-weight: bold; color: #333; text-align: center;">Bienvenido a Las Naves</h2>
+        <p style="font-size: 18px; color: #666; text-align: center;">¡Bienvenido al portal web del hermoso centro turístico Las Naves!</p>
+        <p style="font-size: 18px; color: #666; text-align: center;">Ubicado en un entorno natural impresionante, Las Naves te ofrece una experiencia única llena de aventura, relajación y descubrimiento.</p>
+        <p style="font-size: 18px; color: #666; text-align: center;">Descubre nuestras magníficas cascadas, explora nuestros senderos rodeados de exuberante vegetación y disfruta de la tranquilidad de nuestros rincones especiales.</p>
+        <p style="font-size: 18px; color: #666; text-align: center;">Con una amplia gama de actividades para todos los gustos y edades, Las Naves es el destino perfecto para tus próximas vacaciones inolvidables.</p>
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="cuartos.php" class="btn btn-primary">Explora nuestros cuartos</a>
+        </div>
     </div>
-
-    
+    <div class="container">
+        <h2 style="padding: 50px;color: white; font-size: 44px; font-weight: bold; text-shadow: 2px 2px 4px rgba(255, 255, 255)" class="textoxd">Las cascadas</h2>
+        <div class="b1-wrapper">
+            <?php 
+            $i = 0; // Variable para alternar el color de la tarjeta
+            foreach ($datosSeccion as $seccion) : 
+            ?>
+            <div class="b1-custom b1-color-<?php echo $i; ?>">
+                <div class="b1-border"></div>
+                <h1><?php echo $seccion["titulo"]; ?></h1>
+                <img src="<?php echo $seccion["imagen"]; ?>" />
+                <p><?php echo $seccion["descripcion"]; ?></p>
+                </div>
+            <?php 
+            // Alternar el color de la tarjeta
+            $i = ($i + 1) % 4; 
+            ?>
+            <?php endforeach; ?>
+        </div>
+    </div>
+    <div class="container">
+        <h2 style="font-size: 36px; font-weight: bold; color: #333; text-align: center;">Otra sección estática</h2>
+        <p style="font-size: 18px; color: #666; text-align: center;">Descripción de esta otra sección estática. Puedes agregar aquí cualquier información adicional sobre el lugar.</p>
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="cuartos.php" class="btn btn-primary">Reservar ahora</a>
+        </div>
+    </div>
     <?php include 'reservaciones/web/footer.php'; ?>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -119,8 +127,4 @@ while ($row_seccion = mysqli_fetch_assoc($result_seccion)) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <script src="reservaciones/js/slider.js"></script>
 </body>
-
 </html>
-<script>
-  
-</script>

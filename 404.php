@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Centro Turistico las naves</title>
+    <title>Centro turístico San Mateo</title>
 </head>
 <style>
     @import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,700');
@@ -141,7 +141,7 @@ a.more-link {
 </style>
 <body>
 <h1>404 Error Pagina</h1>
-<p class="zoom-area"><b></b> Centro turistico Las Naves</p>
+<p class="zoom-area"><b></b> Centro turístico San Mateo</p>
 <section class="error-container">
   <span><span>4</span></span>
   <span>0</span>
