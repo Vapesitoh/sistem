@@ -112,7 +112,7 @@ $resultadoReservaciones = mysqli_query($conexion, $consultaReservaciones);
                                     echo "<td class='strong-black-text text-center'>" . $estadoTexto . "</td>";
                                     // Agregar botones para aprobar y cancelar
                                     echo "<td class='strong-black-text text-center'>
-                                              <button class='btn btn-info btn-aprobar' data-id='{$fila['id']}'>Aprobar</button>
+                                              <button class='btn btn-info btn-sucess' data-id='{$fila['id']}'>Aprobar</button>
                                           </td>";
                                     echo "<td class='strong-black-text text-center'>
                                               <button class='btn btn-danger btn-cancelar' data-id='{$fila['id']}'>Cancelar</button>
@@ -160,13 +160,13 @@ mysqli_close($conexion);
         });
 
 // Función para manejar el click en el botón Aprobar
-$('.btn-aprobar').click(function() {
+$('.btn-sucess').click(function() {
     var reservacionId = $(this).data('id');
     // Obtener el valor total de la reserva
-    var valorTotalReserva = $(this).closest('tr').find('td:eq(6)').text(); // Esto asume que la columna del valor total es la séptima (índice 6)
+    var valorTotalReserva = parseFloat($(this).closest('tr').find('td:eq(6)').text()); // Esto asume que la columna del valor total es la séptima (índice 6)
 
     // Calcular el 50% del valor total
-    var cincuentaPorCiento = parseFloat(valorTotalReserva) * 0.50;
+    var cincuentaPorCiento = valorTotalReserva * 0.50;
 
     // Mostrar modal para ingresar el monto del primer pago
     Swal.fire({
@@ -184,21 +184,29 @@ $('.btn-aprobar').click(function() {
             if (!monto || !/^\d+(\.\d{1,2})?$/.test(monto)) {
                 Swal.showValidationMessage('Por favor ingrese un monto válido. Solo se permiten números.');
             } else {
-                // Realizar la solicitud AJAX al controlador
-                return $.ajax({
-                    url: 'controlador/botones.php',
-                    type: 'POST',
-                    data: { id: reservacionId, action: 'aprobar', monto_primer_pago: monto },
-                }).then(response => {
-                    const data = JSON.parse(response);
-                    if (!data.success) {
-                        throw new Error(data.message || 'Error al aprobar la reservación.');
-                    }
-                }).catch(error => {
-                    Swal.showValidationMessage(
-                        `Error: ${error}`
-                    );
-                });
+                var montoPrimerPago = parseFloat(monto);
+                // Verificar que el monto ingresado sea al menos el 50% del valor total
+                if (montoPrimerPago < cincuentaPorCiento) {
+                    Swal.showValidationMessage('El monto del primer pago debe ser al menos el 50% del valor total de la reserva.');
+                } else if (montoPrimerPago > valorTotalReserva) {
+                    Swal.showValidationMessage('El monto del primer pago no puede ser mayor que el valor total de la reserva.');
+                } else {
+                    // Realizar la solicitud AJAX al controlador
+                    return $.ajax({
+                        url: 'controlador/botones.php',
+                        type: 'POST',
+                        data: { id: reservacionId, action: 'aprobar', monto_primer_pago: monto },
+                    }).then(response => {
+                        const data = JSON.parse(response);
+                        if (!data.success) {
+                            throw new Error(data.message || 'Error al aprobar la reservación.');
+                        }
+                    }).catch(error => {
+                        Swal.showValidationMessage(
+                            `Error: ${error}`
+                        );
+                    });
+                }
             }
         },
         allowOutsideClick: () => !Swal.isLoading()
@@ -216,6 +224,7 @@ $('.btn-aprobar').click(function() {
         }
     });
 });
+
 
         // Función para manejar el click en el botón Cancelar
         $('.btn-cancelar').click(function() {

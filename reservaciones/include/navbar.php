@@ -52,7 +52,7 @@ $pagina_actual = basename($_SERVER['PHP_SELF']); // Obtener el nombre de la pág
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="./assets/img/favicon.png">
     <title>Panel</title>
     <!-- Fonts and icons -->
@@ -117,7 +117,15 @@ $pagina_actual = basename($_SERVER['PHP_SELF']); // Obtener el nombre de la pág
                 <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                     <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
                 </div>
-                <span class="nav-link-text ms-1">Pagos</span>
+                <span class="nav-link-text ms-1">Reservadas</span>
+            </a>
+        </li>
+        <li class="nav-item <?php echo ($pagina_actual == 'vista.php') ? 'active' : ''; ?>">
+            <a class="nav-link" href="./vista.php">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                    <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
+                </div>
+                <span class="nav-link-text ms-1">Vista general</span>
             </a>
         </li>
         <li class="nav-item <?php echo ($pagina_actual == 'solicitudes.php') ? 'active' : ''; ?>">
@@ -257,7 +265,7 @@ $pagina_actual = basename($_SERVER['PHP_SELF']); // Obtener el nombre de la pág
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
             <li class="breadcrumb-item text-sm text-white active" aria-current="page">Panel Web</li>
           </ol>
-          <h6 class="font-weight-bolder text-white mb-0">Centro turistico las naves</h6>
+          <h6 class="font-weight-bolder text-white mb-0">Centro turístico San Mateo</h6>
         </nav>
        
          <li class="nav-item d-xl-none ps-3 d-flex align-items-center">

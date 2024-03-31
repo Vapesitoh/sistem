@@ -65,7 +65,7 @@ if ($rolUsuario !== 'Administrador') {
                             <table id="tabla-habitaciones" class="table align-items-center mb-0">
                                 <thead>
                                     <tr>
-                                        <th class="strong-black-text text-center">Numero de habitaciones</th>
+                                        <th class="strong-black-text text-center">Habitaciones</th>
                                         <th class="strong-black-text text-center">Imágenes</th>
                                         <th class="strong-black-text text-center">Tipo</th>
                                         <th class="strong-black-text text-center">Mascotas</th>
@@ -113,7 +113,8 @@ if ($rolUsuario !== 'Administrador') {
                         data.forEach(function(habitacion) {
                             var fila = `
                                 <tr>
-                                    <td class="strong-black-text text-center align-middle">${habitacion.id}</td>
+                                    <td hidden class="strong-black-text text-center align-middle">${habitacion.id}</td>
+                                    <td  class="strong-black-text text-center align-middle">${habitacion.titulo}</td>
                                     <td class="strong-black-text text-center text-xs font-weight-bold mb-0">
                                         <img src="${habitacion.foto1}" alt="Imágenes Habitación" style="max-width: 150px; max-height: 150px;">
                                     </td>

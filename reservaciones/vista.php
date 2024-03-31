@@ -29,6 +29,22 @@ if ($rolUsuario !== 'Administrador') {
     header("Location: 403.php");
     exit();
 }
+
+// Consultar todas las habitaciones
+$consultaHabitaciones = "SELECT * FROM habitaciones";
+$resultadoHabitaciones = mysqli_query($conexion, $consultaHabitaciones);
+
+// Preparar los datos de las habitaciones para mostrar en tarjetas
+$habitaciones = array();
+while ($fila = mysqli_fetch_assoc($resultadoHabitaciones)) {
+    $habitaciones[] = $fila;
+}
+
+// Liberar el conjunto de resultados
+mysqli_free_result($resultadoHabitaciones);
+
+// Cerrar la conexión
+mysqli_close($conexion);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -45,77 +61,45 @@ if ($rolUsuario !== 'Administrador') {
 <?php include 'include/navbar.php'; ?>
 <div class="container mt-4">
     <div class="row" id="habitaciones-container">
-        <!-- Aquí se cargarán dinámicamente las tarjetas de habitaciones -->
+        <?php foreach ($habitaciones as $habitacion): ?>
+            <div class="col-md-4 mb-4">
+                <div class="card" id="habitacion-<?php echo $habitacion['id']; ?>">
+                    <div class="card-body">
+                        <h5 class="card-title"><?php echo $habitacion['titulo']; ?></h5>
+                        <p class="card-text">Tipo: <?php echo $habitacion['tipo']; ?></p>
+                        <p class="card-text">Camas: <?php echo $habitacion['camas']; ?></p>
+                        <p class="card-text">Baños: <?php echo $habitacion['banos']; ?></p>
+                        <p class="card-text">Mascotas: <?php echo $habitacion['mascotas']; ?></p>
+                        <p class="card-text">Precio: <?php echo number_format($habitacion['precio'], 2); ?></p>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 $(document).ready(function() {
-    function cargarHabitaciones() {
+    // Agregar evento de clic a las tarjetas de habitaciones
+    $('[id^="habitacion-"]').click(function() {
+        var habitacionId = $(this).attr('id').split('-')[1];
+
+        // Realizar una solicitud AJAX al controlador vista_general.php
         $.ajax({
             url: 'controlador/vista_general.php',
-            type: 'GET',
-            dataType: 'json',
+            method: 'POST',
+            data: {habitacion_id: habitacionId},
             success: function(response) {
-                if (response.length > 0) {
-                    $("#habitaciones-container").empty();
-                    response.forEach(function(habitacion) {
-                        var cardHtml = '<div class="col-md-4 mb-4">';
-                        cardHtml += '<div class="card">';
-                        cardHtml += '<div class="card-body">';
-                        cardHtml += '<h5 class="card-title">' + habitacion.titulo + '</h5>';
-                        cardHtml += '<p class="card-text">Tipo: ' + habitacion.tipo + '</p>';
-                        cardHtml += '<p class="card-text">Camas: ' + habitacion.camas + '</p>';
-                        cardHtml += '<p class="card-text">Baños: ' + habitacion.banos + '</p>';
-                        cardHtml += '<p class="card-text">Mascotas: ' + habitacion.mascotas + '</p>';
-                        cardHtml += '<p class="card-text">Estado: ' + habitacion.estado + '</p>';
-                        cardHtml += '<p class="card-text">Precio: ' + habitacion.precio + '</p>';
-                        cardHtml += '</div>';
-                        cardHtml += '</div>';
-                        cardHtml += '</div>';
-                        $("#habitaciones-container").append(cardHtml);
-
-                        // Agregar evento de clic a la tarjeta de habitación
-                        $(".card").click(function() {
-                            mostrarAlerta(habitacion.estado);
-                        });
-                    });
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error(xhr.responseText);
+                // Mostrar la respuesta utilizando SweetAlert2
+                Swal.fire({
+                    title: 'Estado de la habitación',
+                    html: response
+                });
             }
         });
-    }
-
-    function mostrarAlerta(estado) {
-        // Mostrar la alerta de SweetAlert2 según el estado de la habitación
-        if (estado === 'Ocupada') {
-            Swal.fire({
-                icon: 'error',
-                title: 'Habitación Ocupada',
-                text: 'Lo siento, la habitación está ocupada en este momento.'
-            });
-        } else if (estado === 'Reservada') {
-            Swal.fire({
-                icon: 'info',
-                title: 'Habitación Reservada',
-                text: 'La habitación está reservada para este período.'
-            });
-        } else {
-            Swal.fire({
-                icon: 'success',
-                title: 'Habitación Disponible',
-                text: 'La habitación está disponible.'
-            });
-        }
-    }
-
-    cargarHabitaciones();
+    });
 });
-
 </script>
-
 </body>
 </html>

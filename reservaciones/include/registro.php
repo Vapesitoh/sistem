@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt_verificar->store_result();
     if ($stmt_verificar->num_rows > 0) {
         $response['success'] = false;
-        $response['message'] = "El usuario o correo ya existen en la base de datos.";
+        $response['message'] = "El usuario o correo ya existen.";
         echo json_encode($response);
         exit; // Salir del script si ya existe el usuario o correo
     }

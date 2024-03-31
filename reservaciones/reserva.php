@@ -29,28 +29,7 @@ if ($rolUsuario !== 'Cliente') {
     <?php include 'include/navbar.php'; ?>
     <div class="container-fluid py-4">
         <div class="row justify-content-center" id="reservaciones-container">
-            <div class="col-md-6">
-                <div class="col-md-9 mb-4">
-                    <div class="card card-border-bottom" style="border-color: borderColor;">
-                        <div class="card-header">
-                            <h5 class="card-title">Reservación ${reservacion.id}</h5>
-                        </div>
-                        <div class="card-body">
-                            <p><strong>Nombre de Usuario:</strong> ${reservacion.nombre_usuario}</p>
-                            <p><strong>Número de Teléfono:</strong> ${reservacion.numero_telefono}</p>
-                            <p><strong>Tipo de Habitación:</strong> ${reservacion.tipo_habitacion}</p>
-                            <p><strong>Fecha de Reservación:</strong> ${reservacion.fecha_reservacion}</p>
-                            <p><strong>Fecha de Entrega:</strong> ${reservacion.fecha_entrega}</p>
-                            <p><strong>Precio:</strong> ${reservacion.valor_total}</p>
-                            <p><strong>Estado:</strong> ${estadoTexto}</p>
-                            <p><strong>Saldo Pendiente:</strong> <span class="${saldoPendiente !== 0 ? 'saldo-pendiente' : 'cancelado'}"> ${saldoPendiente} $</span></p>
-                            ${mensajePago}
-                            ${botonEnviarDeposito}
-                            ${botonVerImagen}
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!-- Contenido generado dinámicamente -->
         </div>
     </div>
 
@@ -106,19 +85,15 @@ if ($rolUsuario !== 'Cliente') {
     <script src="./assets/js/argon-dashboard.min.js?v=2.0.4"></script>
     <script>
         $(document).ready(function () {
-            // Función para cargar las reservaciones usando AJAX
             function cargarReservaciones() {
                 $.ajax({
                     url: 'controlador/consultar_reservaciones.php',
                     type: 'GET',
                     dataType: 'json',
                     success: function (data) {
-                        // Limpiar el contenedor antes de agregar las tarjetas
                         $('#reservaciones-container').empty();
 
-                        // Iterar sobre los datos y agregar cada tarjeta al contenedor
                         data.forEach(function (reservacion) {
-                            // Definir el color de fondo de la parte inferior de la tarjeta según el estado
                             var borderColor = '';
                             var estadoTexto = '';
                             if (reservacion.estado === '1') {
@@ -132,7 +107,6 @@ if ($rolUsuario !== 'Cliente') {
                                 estadoTexto = 'Aprobado';
                             }
 
-                            // Calcular el saldo pendiente (valor total - monto del primer pago - monto del segundo pago - monto del tercer pago)
                             var saldoPendiente = reservacion.valor_total - (reservacion.primer_pago ? reservacion.primer_pago : 0) - (reservacion.segundo_pago ? reservacion.segundo_pago : 0) - (reservacion.tercer_pago ? reservacion.tercer_pago : 0);
 
                             var botonEnviarDeposito = '';
@@ -146,7 +120,6 @@ if ($rolUsuario !== 'Cliente') {
                                 estadoTexto = 'Aprobado';
                             }
 
-                            // Construir la tarjeta de reservación y agregarla al contenedor
                             var $tarjeta = $(`
                             <div class="col-md-6">
                                 <div class="col-md-9 mb-4">
@@ -171,32 +144,26 @@ if ($rolUsuario !== 'Cliente') {
                             </div>
                             `);
 
-                            // Ocultar el botón "Enviar depósito" si el saldo pendiente es 0
-                            if (saldoPendiente === 0) {
+                            if (reservacion.estado !== '3') {
                                 $tarjeta.find('.enviar-deposito').hide();
+                                $tarjeta.find('.mensaje-pago').hide();
                             }
 
-                            // Agregar la tarjeta al contenedor
                             $('#reservaciones-container').append($tarjeta);
                         });
                     },
                     error: function (xhr, status, error) {
-                        // Manejar errores de la solicitud AJAX
                         console.error('Error al cargar las reservaciones:', error);
                         alert('Error al cargar las reservaciones. Por favor, inténtelo de nuevo más tarde.');
                     }
                 });
             }
 
-            // Cargar las reservaciones al cargar la página por primera vez
             cargarReservaciones();
 
-            // Manejar clic en el botón "Enviar depósito"
             $(document).on('click', '.enviar-deposito', function () {
-                // Obtener el ID de la reservación desde el atributo de datos
                 const reservacionId = $(this).closest('.card').data('reservacion-id');
 
-                // Mostrar una alerta solicitando la imagen
                 Swal.fire({
                     icon: 'info',
                     title: 'Por favor, suba la imagen de su depósito',
@@ -211,7 +178,6 @@ if ($rolUsuario !== 'Cliente') {
                             const formData = new FormData();
                             formData.append('archivo', file);
 
-                            // Realizar la solicitud AJAX para subir el archivo
                             $.ajax({
                                 url: 'controlador/subir_pagos.php?id=' + reservacionId,
                                 type: 'POST',
@@ -219,7 +185,6 @@ if ($rolUsuario !== 'Cliente') {
                                 contentType: false,
                                 processData: false,
                                 success: function (response) {
-                                    // Analizar la respuesta JSON
                                     try {
                                         response = JSON.parse(response);
                                         if (response.success) {
@@ -227,10 +192,7 @@ if ($rolUsuario !== 'Cliente') {
                                                 icon: 'success',
                                                 title: response.success
                                             }).then(() => {
-                                                // Aquí puedes actualizar la interfaz de usuario si es necesario
                                                 if (response.url) {
-                                                    // Actualizar la interfaz de usuario para mostrar la imagen subida
-                                                    // Por ejemplo, podrías agregar un elemento de imagen en la tarjeta de la reservación
                                                     const imagenUrl = response.url;
                                                     const $tarjeta = $(this).closest('.card');
                                                     $tarjeta.find('.card-body').append(`<img src="${imagenUrl}" alt="Imagen de depósito">`);
@@ -251,7 +213,6 @@ if ($rolUsuario !== 'Cliente') {
                                     }
                                 },
                                 error: function (xhr, status, error) {
-                                    // Manejar errores de la solicitud AJAX
                                     console.error(xhr.responseText);
                                     Swal.fire({
                                         icon: 'error',

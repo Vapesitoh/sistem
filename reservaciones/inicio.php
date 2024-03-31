@@ -87,10 +87,10 @@ if ($rolUsuario !== 'Administrador') {
             </div>
         </div><br>
         <div class="row">
-            <div class="col-lg-7 mb-lg-0 mb-4">
+        <div class="col-lg-7 mb-lg-0 mb-4">
                 <div class="card z-index-2 h-100">
                     <div class="card-header pb-0 pt-1 bg-transparent">
-                        <h6 class="text-capitalize">Reservaciones por día de la semana</h6>
+                        <h6 class="text-capitalize">Reservaciones por día del mes</h6>
                     </div>
                     <div class="card-body p-3">
                         <div class="chart">
@@ -99,6 +99,7 @@ if ($rolUsuario !== 'Administrador') {
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 
@@ -175,41 +176,42 @@ if ($rolUsuario !== 'Administrador') {
         </script>
 
 
-        <script>
-            $(document).ready(function() {
-                $.ajax({
-                    url: 'controlador/grafico.php',
-                    method: 'GET',
-                    dataType: 'json',
-                    success: function(response) {
-                        var ctx = document.getElementById('chart-line').getContext('2d');
-                        var chart = new Chart(ctx, {
-                            type: 'line',
-                            data: {
-                                labels: response.labels,
-                                datasets: [{
-                                    label: 'Reservaciones por día',
-                                    data: response.datos,
-                                    fill: false,
-                                    borderColor: 'rgb(75, 192, 192)',
-                                    tension: 0.1
-                                }]
-                            },
-                            options: {
-                                scales: {
-                                    y: {
-                                        beginAtZero: true
-                                    }
-                                }
-                            }
-                        });
+<script>
+    $(document).ready(function() {
+        $.ajax({
+            url: 'controlador/grafico.php',
+            method: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                var ctx = document.getElementById('chart-line').getContext('2d');
+                var chart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: response.labels, // Aquí deben ser los días del mes
+                        datasets: [{
+                            label: 'Reservaciones por día',
+                            data: response.datos,
+                            fill: false,
+                            borderColor: 'rgb(75, 192, 192)',
+                            tension: 0.1
+                        }]
                     },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        console.error('Error en la solicitud AJAX:', textStatus, errorThrown);
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
                     }
                 });
-            });
-        </script>
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error('Error en la solicitud AJAX:', textStatus, errorThrown);
+            }
+        });
+    });
+</script>
+
 </body>
 
 </html>

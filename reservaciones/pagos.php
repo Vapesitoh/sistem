@@ -59,8 +59,8 @@ if ($rolUsuario !== 'Administrador') {
                             <thead>
                             <tr>
                                 <th class="strong-black-text text-center" hidden>ID</th>
-                                <th class="strong-black-text text-center">Numero de Reservacion</th>
-                                <th class="strong-black-text text-center">Usuario</th>
+                                <th class="strong-black-text text-center">Habitacion</th>
+                                <th hidden class="strong-black-text text-center">Usuario</th>
                                 <th class="strong-black-text text-center">Nombre</th>
                                 <th class="strong-black-text text-center">Teléfono</th>
                                 <th class="strong-black-text text-center">Cédula</th>
@@ -97,7 +97,7 @@ if ($rolUsuario !== 'Administrador') {
 <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
 <script src="./assets/js/argon-dashboard.min.js?v=2.0.4"></script>
 <script>
- $(document).ready(function () {
+$(document).ready(function () {
     // Realizar la petición AJAX para obtener las reservaciones
     $.ajax({
         url: 'controlador/consulta_reservacion_pagos.php',
@@ -109,7 +109,7 @@ if ($rolUsuario !== 'Administrador') {
                 var row = '<tr>' +
                     '<td class="strong-black-text text-center" hidden>' + reservacion.id + '</td>' +
                     '<td class="strong-black-text text-center">' + reservacion.habitacion_id + '</td>' +
-                    '<td class="strong-black-text text-center">' + reservacion.usuario_id + '</td>' +
+                    '<td hidden class="strong-black-text text-center">' + reservacion.usuario_id + '</td>' +
                     '<td class="strong-black-text text-center">' + reservacion.nombre_usuario + '</td>' +
                     '<td class="strong-black-text text-center">' + reservacion.numero_telefono + '</td>' +
                     '<td class="strong-black-text text-center">' + reservacion.cedula + '</td>' +
@@ -117,21 +117,30 @@ if ($rolUsuario !== 'Administrador') {
                     '<td class="strong-black-text text-center">' + reservacion.fecha_entrega + '</td>' +
                     '<td class="strong-black-text text-center">' + reservacion.pago + '</td>' +
                     '<td class="strong-black-text text-center">' + (reservacion.pago === 'Efectivo' ? '' : '<a href="' + reservacion.deposito + '" target="_blank" class="btn btn-primary btn-ver-imagen">Ver comprobante</a>') + '</td>' +
-                    '<td class="strong-black-text text-center">' + (reservacion.pago2 ? '<a href="' + reservacion.pago2 + '" target="_blank" class="btn btn-primary btn-ver-imagen btn-pago2">Pago 2</a>' : '') + '</td>' +
+                    '<td class="strong-black-text text-center">' + (reservacion.pago2 ? '<a href="' + reservacion.pago2 + '" target="_blank" class="btn btn-primary btn-ver-imagen">Pago 2</a>' : '') + '</td>' +
                     '<td class="strong-black-text text-center">' + (reservacion.pago3 ? '<a href="' + reservacion.pago3 + '" target="_blank" class="btn btn-primary btn-ver-imagen">Pago 3</a>' : '') + '</td>' +
                     '<td class="strong-black-text text-center">' + (reservacion.pago4 ? '<a href="' + reservacion.pago4 + '" target="_blank" class="btn btn-primary btn-ver-imagen">Pago 4</a>' : '') + '</td>' +
                     '<td class="strong-black-text text-center">' + reservacion.saldo_restante + '</td>';
 
-                // Verificar si hay segundo pago y mostrar el botón correspondiente
-                if (reservacion.segundo_pago && parseFloat(reservacion.saldo_restante) !== 0) {
-                    row += '<td class="strong-black-text text-center"><a href="#" class="btn btn-primary btn-pago2" data-id="' + reservacion.id + '">Pagar</a></td>';
+                // Verificar si el saldo restante es 0 y mostrar "Pagado"
+                if (parseFloat(reservacion.saldo_restante) === 0) {
+                    row += '<td class="strong-black-text text-center">Pagado</td>';
                 } else {
-                    // Verificar si el saldo restante es cero y mostrar "Pagado"
-                    if (parseFloat(reservacion.saldo_restante) === 0) {
-                        row += '<td class="strong-black-text text-center">Pagado</td>';
-                    } else {
-                        // Agregar el botón de pago si el saldo restante no es cero
-                        row += '<td class="strong-black-text text-center"><button class="btn btn-success btn-pago" data-id="' + reservacion.id + '">Pagar</button></td>';
+                    // Verificar si se debe mostrar el botón de pago 1
+                    if (!reservacion.segundo_pago && parseFloat(reservacion.saldo_restante) !== 0) {
+                        row += '<td class="strong-black-text text-center"><button class="btn btn-success btn-pago" data-id="' + reservacion.id + '" data-saldo="' + reservacion.saldo_restante + '">Pagar</button></td>';
+                    }
+                    // Verificar si se debe mostrar el botón de pago 2
+                    else if (reservacion.segundo_pago && !reservacion.tercer_pago && parseFloat(reservacion.saldo_restante) !== 0) {
+                        row += '<td class="strong-black-text text-center"><button class="btn btn-success btn-pago9" data-id="' + reservacion.id + '" data-saldo="' + reservacion.saldo_restante + '">Pagar</button></td>';
+                    }
+                    // Verificar si se debe mostrar el botón de pago 3
+                    else if (reservacion.tercer_pago && !reservacion.cuarto_pago && parseFloat(reservacion.saldo_restante) !== 0) {
+                        row += '<td class="strong-black-text text-center"><button class="btn btn-success btn-pago5" data-id="' + reservacion.id + '" data-saldo="' + reservacion.saldo_restante + '">Pagar</button></td>';
+                    }
+                    // Si no se cumple ninguna condición, no se muestra ningún botón
+                    else {
+                        row += '<td class="strong-black-text text-center"></td>';
                     }
                 }
 
@@ -154,12 +163,14 @@ if ($rolUsuario !== 'Administrador') {
     // Manejar el clic en el botón de pago
     $(document).on('click', '.btn-pago', function () {
         var reservacionId = $(this).data('id');
+        var saldoRestante = parseFloat($(this).data('saldo'));
 
         Swal.fire({
-            title: 'Ingrese el valor del pago',
+            title: 'Ingrese el valor del pago (Saldo Restante: ' + saldoRestante + ')',
             input: 'number',
             inputAttributes: {
-                step: '0.01'
+                step: '0.01',
+                max: saldoRestante // Establecer el saldo restante como máximo
             },
             showCancelButton: true,
             confirmButtonText: 'Pagar',
@@ -198,24 +209,26 @@ if ($rolUsuario !== 'Administrador') {
         });
     });
 
-    // Manejar el clic en el botón de pago 2
-    $(document).on('click', '.btn-pago2', function () {
+  // Manejar el clic en el botón de pago 2
+$(document).on('click', '.btn-pago9', function () {
         var reservacionId = $(this).data('id');
+        var saldoRestante = parseFloat($(this).data('saldo'));
 
         Swal.fire({
-            title: 'Ingrese el valor del pago 2',
+            title: 'Ingrese el valor del tercer pago (Saldo Restante: ' + saldoRestante + ')',
             input: 'number',
             inputAttributes: {
-                step: '0.01'
+                step: '0.01',
+                max: saldoRestante // Establecer el saldo restante como máximo
             },
             showCancelButton: true,
             confirmButtonText: 'Pagar',
             cancelButtonText: 'Cancelar',
             showLoaderOnConfirm: true,
             preConfirm: (valor) => {
-                // Realizar la petición AJAX para realizar el pago 2
+                // Realizar la petición AJAX para realizar el pago
                 return $.ajax({
-                    url: 'controlador/pago2.php?id=' + reservacionId,
+                    url: 'controlador/pagos2.php?id=' + reservacionId,
                     type: 'POST',
                     data: { valor: valor },
                     dataType: 'json'
@@ -228,8 +241,8 @@ if ($rolUsuario !== 'Administrador') {
                 if (result.value.success) {
                     Swal.fire({
                         icon: 'success',
-                        title: 'Pago 2 realizado',
-                        text: 'El segundo pago se ha realizado correctamente.'
+                        title: 'Pago realizado',
+                        text: 'El pago se ha realizado correctamente.'
                     }).then(() => {
                         // Recargar la página después de cerrar la alerta
                         location.reload();
@@ -242,12 +255,60 @@ if ($rolUsuario !== 'Administrador') {
                     });
                 }
             }
-        }
+        });
+    });
+  // Manejar el clic en el botón de pago 2
+  $(document).on('click', '.btn-pago5', function () {
+        var reservacionId = $(this).data('id');
+        var saldoRestante = parseFloat($(this).data('saldo'));
 
-  ) });
+        Swal.fire({
+            title: 'Ingrese el valor del cuarto pago (Saldo Restante: ' + saldoRestante + ')',
+            input: 'number',
+            inputAttributes: {
+                step: '0.01',
+                max: saldoRestante // Establecer el saldo restante como máximo
+            },
+            showCancelButton: true,
+            confirmButtonText: 'Pagar',
+            cancelButtonText: 'Cancelar',
+            showLoaderOnConfirm: true,
+            preConfirm: (valor) => {
+                // Realizar la petición AJAX para realizar el pago
+                return $.ajax({
+                    url: 'controlador/pagos3.php?id=' + reservacionId,
+                    type: 'POST',
+                    data: { valor: valor },
+                    dataType: 'json'
+                });
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+        }).then((result) => {
+            // Mostrar el resultado de la operación
+            if (result.isConfirmed) {
+                if (result.value.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Pago realizado',
+                        text: 'El pago se ha realizado correctamente.'
+                    }).then(() => {
+                        // Recargar la página después de cerrar la alerta
+                        location.reload();
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: result.value.error
+                    });
+                }
+            }
+        });
+    });
+
+
 });
 </script>
-
 
 </body>
 </html>

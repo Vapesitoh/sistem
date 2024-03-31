@@ -1,77 +1,64 @@
 <?php
 include ('../include/conexion.php');
-session_start();
 
-// Verificar si el usuario está autenticado
-if (!isset($_SESSION['usuario_id'])) {
-    // Si el usuario no está autenticado, redirigir a index.php
-    header("Location: index.php");
-    exit();
-}
+// Verificar si se ha recibido el ID de la habitación
+if(isset($_POST['habitacion_id'])) {
+    $habitacion_id = $_POST['habitacion_id'];
 
-// Obtener el rol del usuario de la base de datos
-$usuario_id = $_SESSION['usuario_id'];
-$consultaRolUsuario = "SELECT rol FROM usuarios WHERE id = $usuario_id";
-$resultadoRolUsuario = mysqli_query($conexion, $consultaRolUsuario);
+    // Consultar la habitación en la base de datos
+    $consultaHabitacion = "SELECT * FROM habitaciones WHERE id = $habitacion_id";
+    $resultadoHabitacion = mysqli_query($conexion, $consultaHabitacion);
 
-if (!$resultadoRolUsuario) {
-    // Si hay un error en la consulta, redirigir a una página de error o manejar el error de alguna otra manera
-    header("Location: 403.php");
-    exit();
-}
+    if(mysqli_num_rows($resultadoHabitacion) > 0) {
+        // Si la habitación existe en la base de datos
+        $habitacion = mysqli_fetch_assoc($resultadoHabitacion);
+        
+        // Obtener la fecha y hora actual
+        $fecha_actual = date('Y-m-d H:i:s');
 
-$filaRolUsuario = mysqli_fetch_assoc($resultadoRolUsuario);
-$rolUsuario = $filaRolUsuario['rol'];
+        // Consultar todas las reservaciones de la habitación
+        $consultaReservaciones = "SELECT * FROM reservacion WHERE habitacion_id = $habitacion_id";
+        $resultadoReservaciones = mysqli_query($conexion, $consultaReservaciones);
 
-// Verificar si el rol del usuario es administrador
-if ($rolUsuario !== 'Administrador') {
-    // Si el usuario no es administrador, redirigir a una página de acceso denegado
-    header("Location: 403.php");
-    exit();
-}
+        // Verificar si hay reservaciones para la habitación
+        if(mysqli_num_rows($resultadoReservaciones) > 0) {
+            $estado_reservacion = null;
+            while($reservacion = mysqli_fetch_assoc($resultadoReservaciones)) {
+                if($reservacion['estado'] == 3 && $fecha_actual < $reservacion['fecha_reservacion']) {
+                    // Si hay una reservación futura con estado 3, la habitación está reservada
+                    $estado_reservacion = 'reservada';
+                    break;
+                } elseif ($reservacion['estado'] == 3 && $fecha_actual >= $reservacion['fecha_reservacion'] && $fecha_actual <= $reservacion['fecha_entrega']) {
+                    // Si hay una reservación activa con estado 3, la habitación está ocupada
+                    $estado_reservacion = 'ocupada';
+                    break;
+                }
+            }
 
-// Consulta las reservaciones
-$consultaReservaciones = "SELECT r.*, h.titulo, h.tipo, h.camas, h.banos, h.mascotas, h.precio
-                          FROM reservacion r
-                          LEFT JOIN habitaciones h ON r.habitacion_id = h.id";
-$resultadoReservaciones = mysqli_query($conexion, $consultaReservaciones);
-
-// Preparar los datos para enviar como respuesta JSON
-$reservaciones = array();
-while ($fila = mysqli_fetch_assoc($resultadoReservaciones)) {
-    // Determinar el estado de la habitación
-    $estado = '';
-    $fecha_actual = date("Y-m-d H:i:s");
-    $fecha_reservacion = $fila['fecha_reservacion'];
-    $fecha_entrega = $fila['fecha_entrega'];
-
-    if ($fecha_actual >= $fecha_reservacion && $fecha_actual <= $fecha_entrega) {
-        $estado = 'Ocupada';
-    } elseif ($fecha_actual < $fecha_reservacion) {
-        $estado = 'Reservada';
+            if($estado_reservacion === 'reservada') {
+                echo 'La habitación está reservada.';
+            } elseif($estado_reservacion === 'ocupada') {
+                echo 'La habitación está ocupada.';
+            } else {
+                echo 'La habitación está disponible.';
+            }
+        } else {
+            // Si no hay reservaciones para la habitación
+            echo 'La habitación está disponible.';
+        }
     } else {
-        $estado = 'Disponible';
+        // Si la habitación no existe en la base de datos
+        echo 'La habitación no existe.';
     }
 
-    // Añadir la información de la habitación y su estado al array de reservaciones
-    $reservaciones[] = array(
-        'id' => $fila['id'],
-        'titulo' => $fila['titulo'],
-        'tipo' => $fila['tipo'],
-        'camas' => $fila['camas'],
-        'banos' => $fila['banos'],
-        'mascotas' => $fila['mascotas'],
-        'estado' => $estado,
-        'precio' => $fila['precio']
-    );
+    // Liberar los resultados de las consultas
+    mysqli_free_result($resultadoReservaciones);
+    mysqli_free_result($resultadoHabitacion);
+} else {
+    // Si no se ha recibido el ID de la habitación
+    echo 'No se ha proporcionado el ID de la habitación.';
 }
-
-// Liberar el conjunto de resultados
-mysqli_free_result($resultadoReservaciones);
 
 // Cerrar la conexión
 mysqli_close($conexion);
-
-// Enviar la respuesta en formato JSON
-echo json_encode($reservaciones);
 ?>

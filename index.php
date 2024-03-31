@@ -42,22 +42,21 @@ while ($row_seccion = mysqli_fetch_assoc($result_seccion)) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
+<meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <link rel="shortcut icon" href="reservaciones/images/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="reservaciones/images/favicon.png" type="">
     <title>Centro turístico San Mateo</title>
     <link rel="stylesheet" type="text/css" href="reservaciones/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha512-CruCP+TD3yXzlvvijET8wV5WxxEh5H8P4cmz0RFbKK6FlZ2sYl3AEsKlLPHbniXKSrDdFewhbmBK5skbdsASbQ==" crossorigin="anonymous" />
     <link href="reservaciones/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="./reservaciones/css/style.css" rel="stylesheet" />
-    <link href="./reservaciones/css/responsive.css" rel="stylesheet" />
-    <link rel="stylesheet" href="reservaciones/css/slider.css">
-    <link rel="stylesheet" href="reservaciones/css/index.css">
+    <link href="reservaciones/css/style.css" rel="stylesheet" />
+    <link href="reservaciones/css/responsive.css" rel="stylesheet" />
+    <link rel="stylesheet" href="reservaciones/css/style1.css">
 </head>
 <body class="sub_page">
     <?php include 'reservaciones/web/navbarweb.php'; ?>
@@ -84,11 +83,11 @@ while ($row_seccion = mysqli_fetch_assoc($result_seccion)) {
         </div>
     </section>
     <div class="container">
-        <h2 style="font-size: 36px; font-weight: bold; color: #333; text-align: center;">Bienvenido a Las Naves</h2>
-        <p style="font-size: 18px; color: #666; text-align: center;">¡Bienvenido al portal web del hermoso centro turístico Las Naves!</p>
-        <p style="font-size: 18px; color: #666; text-align: center;">Ubicado en un entorno natural impresionante, Las Naves te ofrece una experiencia única llena de aventura, relajación y descubrimiento.</p>
-        <p style="font-size: 18px; color: #666; text-align: center;">Descubre nuestras magníficas cascadas, explora nuestros senderos rodeados de exuberante vegetación y disfruta de la tranquilidad de nuestros rincones especiales.</p>
-        <p style="font-size: 18px; color: #666; text-align: center;">Con una amplia gama de actividades para todos los gustos y edades, Las Naves es el destino perfecto para tus próximas vacaciones inolvidables.</p>
+        <h2 style="font-size: 36px; font-weight: bold; color: #333;">Bienvenido a al Centro turístico San Mateo</h2>
+        <p style="font-size: 18px; color: #666; ">¡Bienvenido al portal web del Centro turístico San Mateo!</p>
+        <p style="font-size: 18px; color: #666; ">Ubicado en un entorno natural impresionante, Las Naves te ofrece una experiencia única llena de aventura, relajación y descubrimiento.</p>
+        <p style="font-size: 18px; color: #666; ">Descubre nuestras magníficas cascadas, explora nuestros senderos rodeados de exuberante vegetación y disfruta de la tranquilidad de nuestros rincones especiales.</p>
+        <p style="font-size: 18px; color: #666; ">Con una amplia gama de actividades para todos los gustos y edades, Las Naves es el destino perfecto para tus próximas vacaciones inolvidables.</p>
         <div style="text-align: center; margin-top: 20px;">
             <a href="cuartos.php" class="btn btn-primary">Explora nuestros cuartos</a>
         </div>

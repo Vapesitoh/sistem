@@ -1,0 +1,77 @@
+    /* Estilos para la wrapper */
+    .b1-wrapper {
+        max-width: 960px; /* Aumentar el ancho del wrapper */
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between; /* Distribuir las tarjetas uniformemente */
+        gap: 20px; /* Espacio entre las tarjetas */
+    }
+
+    /* Estilos para las tarjetas personalizadas */
+    .b1-custom {
+        width: 300px; /* Ajustar el ancho de las tarjetas */
+        background: #EB5160;
+        color: #fff;
+        cursor: pointer;
+        padding: 20px;
+        text-align: center; /* Centrar el contenido */
+        margin-bottom: 20px; /* Espacio vertical entre las tarjetas */
+        position: relative;
+        display: flex;
+        flex-direction: column; /* Ajustar la dirección del flexbox */
+        justify-content: flex-start; /* Alinear el contenido al principio verticalmente */
+        align-items: center; /* Centrar horizontalmente */
+    }
+
+    /* Estilos para el borde */
+
+
+    /* Estilos para el título */
+    .b1-custom h1 {
+        margin-top: 10px; /* Espacio entre la imagen y el título */
+        margin-bottom: 10px;
+        font-weight: 100px;
+    }
+
+    /* Estilos para la imagen */
+    .b1-custom img {
+        max-width: 100%; /* Ajustar el ancho máximo de la imagen */
+        max-height: 50%; /* Ajustar la altura máxima de la imagen */
+        margin-top: 10px; /* Espacio entre el título y la imagen */
+    }
+
+    /* Estilos para la descripción */
+    .b1-custom p {
+        margin-top: 10px; /* Espacio entre la imagen y la descripción */
+    }
+
+    /* Estilos para cada tarjeta de color */
+    .b1-color-0 {
+        background-color: #EB5160;
+    }
+
+    .b1-color-1 {
+        background-color: #8F3985;
+    }
+
+    .b1-color-2 {
+        background-color: #8DAA91;
+    }
+
+    .b1-color-3 {
+        background-color: #888DA7;
+    }
+
+    /* Estilos adicionales para dispositivos móviles */
+    @media only screen and (max-width: 768px) {
+        .b1-custom {
+            width: calc(33.33% - 20px); /* Ajustar el ancho de las tarjetas para dispositivos móviles */
+        }
+    }
+
+    @media only screen and (max-width: 480px) {
+        .b1-custom {
+            width: calc(50% - 20px); /* Ajustar el ancho de las tarjetas para dispositivos móviles */
+        }
+    }

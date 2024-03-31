@@ -6,7 +6,7 @@
             <div class="container">
                 <nav class="navbar navbar-expand-lg custom_nav-container ">
                     <a class="navbar-brand" >
-                        <span>Centro turistico las naves</span>
+                        <span>Centro turístico San Mateo</span>
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class=""> </span>
@@ -26,7 +26,7 @@
                                 <a class="nav-link" href="web.php">Platos</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/reservaciones/index.php">Login</a>
+                                <a class="nav-link" href="/reservaciones/index.php">Inicia sesión</a>
                             </li>
                         </ul>
                     </div>

@@ -48,7 +48,7 @@
                                             <input type="text" class="form-control form-control-lg" placeholder="Número de Teléfono" aria-label="Número de Teléfono" name="numero_telefono" required="">
                                         </div>
                                         <div class="mb-3">
-                                            <input type="text" class="form-control form-control-lg" placeholder="Cédula" aria-label="Cédula" name="cedula" required="">
+                                            <input type="text" class="form-control form-control-lg" placeholder="Cédula / # Identificación" aria-label="Cédula" name="cedula" required="">
                                         </div>
                                         <div class="mb-3">
                                             <input type="email" class="form-control form-control-lg" placeholder="Correo Electrónico" aria-label="Correo Electrónico" name="correo" required="">

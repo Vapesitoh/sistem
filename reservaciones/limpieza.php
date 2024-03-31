@@ -52,6 +52,8 @@ if ($rolUsuario !== 'Administrador') {
                         <h6>Habitaciones</h6>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
+                    <button id="btnAgregarEmpleado" class="btn btn-success"><i class="bi bi-person-fill-add"></i> Agregar Empleado</button>
+
                         <div class="table-responsive p-0">
                             <table id="tabla-habitaciones" class="table align-items-center mb-0">
                                 <thead>
@@ -93,7 +95,7 @@ if ($rolUsuario !== 'Administrador') {
                     habitaciones.forEach(function(habitacion) {
                         var row = '<tr>';
                         row += '<td class="text-center">' + habitacion + '</td>';
-                        row += '<td class="text-center"><button class="btn btn-primary btn-agregar" data-habitacion="' + habitacion + '"><i class="bi bi-person-fill-add"></i></button></td>';
+                        row += '<td class="text-center"><button class="btn btn-primary btn-agregar" data-habitacion="' + habitacion + '"><i class="bi bi-people"></i></i></button></td>';
                         row += '<td class="text-center"><button class="btn btn-danger btn-finalizar" data-habitacion="' + habitacion + '"><i class="bi bi-stopwatch-fill"></i></button></td>';
                         row += '</tr>';
 
@@ -230,7 +232,82 @@ if ($rolUsuario !== 'Administrador') {
                     }
                 });
             });
+            $(document).ready(function() {
+    // Evento click para el botón agregar empleado
+    $('#btnAgregarEmpleado').click(function() {
+        // Mostrar un cuadro de diálogo de SweetAlert2 para agregar empleado
+        Swal.fire({
+            title: 'Agregar Empleado',
+            html:
+                '<input id="swal-input-nombres" class="swal2-input" placeholder="Nombres">' +
+                '<input id="swal-input-cedula" class="swal2-input" placeholder="Cedula">' +
+                '<input id="swal-input-cel" class="swal2-input" placeholder="Cel">' +
+                '<select id="swal-input-cargo" class="swal2-select">' +
+                '   <option value="Limpieza">Limpieza</option>' +
+                '   <option value="Mantenimiento">Mantenimiento</option>' +
+                '</select>',
+            focusConfirm: false,
+            preConfirm: () => {
+                return {
+                    nombres: $('#swal-input-nombres').val(),
+                    cedula: $('#swal-input-cedula').val(),
+                    cel: $('#swal-input-cel').val(),
+                    cargo: $('#swal-input-cargo').val()
+                }
+            },
+            showCancelButton: true,
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: 'Agregar',
+            confirmButtonColor: '#28a745',
+            cancelButtonColor: '#dc3545',
+            allowOutsideClick: () => !Swal.isLoading()
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Enviar los datos del empleado al controlador mediante AJAX
+                $.ajax({
+                    url: 'controlador/subir_empleado.php',
+                    type: 'POST',
+                    data: {
+                        nombres: result.value.nombres,
+                        cedula: result.value.cedula,
+                        cel: result.value.cel,
+                        cargo: result.value.cargo
+                    },
+                    success: function(response) {
+                        // Manejar la respuesta del servidor
+                        response = JSON.parse(response);
+                        if (response.status === 'success') {
+                            Swal.fire({
+                                title: 'Empleado Agregado',
+                                text: response.message,
+                                icon: 'success'
+                            });
+                        } else {
+                            Swal.fire({
+                                title: 'Error',
+                                text: response.message,
+                                icon: 'error'
+                            });
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        // Manejar errores de AJAX
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'Hubo un error al procesar la solicitud.',
+                            icon: 'error'
+                        });
+                    }
+                });
+            }
         });
+    });
+
+    // Resto del código JavaScript existente
+});
+
+        });
+
     </script>
 </body>
 </html>

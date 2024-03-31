@@ -47,13 +47,13 @@ if ($rolUsuario !== 'Cliente') {
                                     <tr>
                                         <th hidden class="text-center">ID</th>
                                         <th hidden class="text-center">Habitación ID</th> <!-- Ocultar la columna Habitación ID -->
-                                        <th class="text-center">Número de Habitación</th> <!-- Cambiar el nombre de la columna -->
-                                        <th class="text-center">Nombre Usuario</th>
-                                        <th class="text-center">Número Teléfono</th>
+                                        <th class="text-center">Habitación</th> <!-- Cambiar el nombre de la columna -->
+                                        <th hidden class="text-center">Nombre Usuario</th>
+                                        <th hidden class="text-center">Número Teléfono</th>
                                         <th class="text-center">Tipo de Habitación</th>
                                         <th class="text-center">Fecha de Reservación</th>
                                         <th class="text-center">Fecha de Entrega</th>
-                                        <th class="text-center">Precio</th>
+                                        <th hidden class="text-center">Precio</th>
                                         <th class="text-center">Estado</th>
                                         <th class="text-center">Valor total</th>
                                     </tr>
@@ -88,12 +88,12 @@ if ($rolUsuario !== 'Cliente') {
                         var row = $('<tr>');
                         row.append($('<td hidden>').text(reservacion.id));
                         row.append($('<td class="text-center">').text(reservacion.habitacion_id));
-                        row.append($('<td class="text-center">').text(reservacion.nombre_usuario));
-                        row.append($('<td class="text-center">').text(reservacion.numero_telefono));
+                        row.append($('<td hidden class="text-center">').text(reservacion.nombre_usuario));
+                        row.append($('<td hidden class="text-center">').text(reservacion.numero_telefono));
                         row.append($('<td class="text-center">').text(reservacion.tipo_habitacion));
                         row.append($('<td class="text-center">').text(reservacion.fecha_reservacion));
                         row.append($('<td class="text-center">').text(reservacion.fecha_entrega));
-                        row.append($('<td class="text-center">').text(reservacion.precio));
+                        row.append($('<td hidden class="text-center">').text(reservacion.precio));
                         row.append($('<td class="text-center">').text(estadoTexto));
                         row.append($('<td class="text-center">').text(reservacion.valor_total));
                         tableBody.append(row);

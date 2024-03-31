@@ -59,20 +59,8 @@ mysqli_close($conexion);
 
             <div class="container">
                 <div class="row">
+
                     <div class="col-md-6">
-                        <!-- Aquí mostramos las imágenes de la habitación -->
-                        <div class="imagenes-habitacion">
-                            <?php if ($habitacion['foto1']) : ?>
-                                <img src="<?php echo $habitacion['foto1']; ?>" class="imagen-habitacion" alt="Foto de la habitación">
-                            <?php endif; ?>
-                            <?php if ($habitacion['foto2']) : ?>
-                                <img src="<?php echo $habitacion['foto2']; ?>" class="imagen-habitacion" alt="Foto de la habitación">
-                            <?php endif; ?>
-                            <?php if ($habitacion['foto3']) : ?>
-                                <img src="<?php echo $habitacion['foto3']; ?>" class="imagen-habitacion" alt="Foto de la habitación">
-                            <?php endif; ?>
-                        </div>
-                    </div>
                     <div class="col-md-6">
                         <form id="reservacionForm" action="./controlador/reservar_habitacion.php" method="POST" enctype="multipart/form-data">
                             <?php if ($datos_usuario) : ?>
@@ -115,7 +103,7 @@ mysqli_close($conexion);
                                 <input type="datetime-local" class="form-control" id="fecha_entrega" name="fecha_entrega" min="<?php echo date('Y-m-d\TH:i'); ?>" onchange="calcularPrecioTotal()" required>
                             </div>
                             <div class="form-group">
-                                <label for="adultos">Cantidadde adultos:</label>
+                                <label for="adultos">Cantidad de adultos:</label>
                                 <input type="number" class="form-control" id="adultos" name="adultos" min="0" max="4" onchange="calcularPrecioTotal()" required>
                             </div>
                             <div class="form-group">
@@ -147,6 +135,8 @@ mysqli_close($conexion);
                     </div>
                 </div>
             </div>
+                    </div>
+                    
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

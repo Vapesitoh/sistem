@@ -2,8 +2,19 @@
 // Incluir el archivo de conexión a la base de datos
 include('../include/conexion.php');
 
-// Consultar los usuarios en la base de datos
+// Inicializar la variable de consulta
 $consultaUsuarios = "SELECT * FROM usuarios";
+
+// Verificar si se proporcionó un número de cédula para filtrar
+if (isset($_GET['cedula']) && !empty($_GET['cedula'])) {
+    // Escapar el número de cédula para evitar inyección SQL
+    $cedula = mysqli_real_escape_string($conexion, $_GET['cedula']);
+    
+    // Agregar el filtro a la consulta SQL utilizando LIKE para buscar coincidencias parciales
+    $consultaUsuarios .= " WHERE cedula LIKE '%$cedula%'";
+}
+
+// Ejecutar la consulta
 $resultadoUsuarios = mysqli_query($conexion, $consultaUsuarios);
 
 // Verificar si la consulta fue exitosa

@@ -3,7 +3,7 @@ include('../include/conexion.php');
 
 // Consulta para obtener todas las reservaciones y calcular el saldo restante
 $consultaReservaciones = "SELECT *,
-                            (valor_total - COALESCE(primer_pago, 0) - COALESCE(segundo_pago, 0) - COALESCE(tercer_pago, 0)) AS saldo_restante
+                            (valor_total - COALESCE(primer_pago, 0) - COALESCE(segundo_pago, 0) - COALESCE(tercer_pago, 0) - COALESCE(cuarto_pago, 0)) AS saldo_restante
                         FROM reservacion
                         WHERE estado = 3";
 

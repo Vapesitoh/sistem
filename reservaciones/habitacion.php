@@ -77,7 +77,8 @@ $reserva_activa = mysqli_fetch_assoc($result_reserva_activa);
                                 '<img src="' + habitacion.foto1 + '" class="card-img-top" alt="...">' +
                                 '<div class="card-body">' +
                                 '<h5 class="card-title">' + habitacion.tipo + '</h5>' +
-                                '<h5 class="card-title">Numero de Habitación' + habitacion.id + '</h5>' +
+                                '<h5 hidden class="card-title">Numero de Habitación' + habitacion.id + '</h5>' +
+                                '<h5 class="card-title">' + habitacion.titulo + '</h5>' +
                                 '<p class="card-text">Camas: ' + habitacion.camas + '</p>' +
                                 '<p class="card-text">Baños: ' + habitacion.banos + '</p>' +
                                 '<p class="card-text">Mascotas: ' + habitacion.mascotas + '</p>' +
