@@ -76,17 +76,13 @@
                                 Ubicación del Centro Turístico Cascada San Mateo
                             </span>
                         </a>
-                        <a href="https://wa.link/wswcqy">
+                        <a href="https://wa.link/lubcuz">
                             <i class="fa fa-phone" aria-hidden="true"></i>
                             <span>
-                                Llamar al +593 993715242
+                                Llamar al +593 99 389 0442
                             </span>
                         </a>
-                        <a href="">
-                            <i class="fa fa-envelope" aria-hidden="true"></i>
-                            <span>
-                                demo@gmail.com
-                            </span>
+        
                         </a>
                     </div>
                 </div>
@@ -101,10 +97,13 @@
                         Nos encanta la naturaleza y estamos comprometidos con su conservación.
                     </p>
                     <div class="footer_social">
-                        <a href="https://www.facebook.com">
+                        <a href="https://www.facebook.com/share/zz7vP3gfFmctsKef/?mibextid=qi2Omg">
                             <i class="fa fa-facebook" aria-hidden="true"></i>
                         </a>
-                        <!-- Agrega los enlaces para las otras redes sociales -->
+                        <a href="https://www.instagram.com/cascadassanmateo?igsh=ZDNzcnBnd2RmMWY4">
+                            <i class="fa fa-instagram" aria-hidden="true"></i>
+                        </a>
+
                     </div>
                 </div>
             </div>
