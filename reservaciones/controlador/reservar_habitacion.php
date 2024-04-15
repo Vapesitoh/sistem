@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql_usuario = "SELECT nombres, numero_telefono, cedula FROM usuarios WHERE id = $usuario_id";
     $result_usuario = mysqli_query($conexion, $sql_usuario);
     $datos_usuario = mysqli_fetch_assoc($result_usuario);
-
+    
     // Verificar si se encontraron datos del usuario
     if ($datos_usuario) {
         // Obtener los datos necesarios del formulario

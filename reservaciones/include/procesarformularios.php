@@ -4,7 +4,6 @@ include('conexion.php');
 function procesarFormulario($tabla)
 {
     global $conexion;
-
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_$tabla"])) {
         switch ($tabla) {
             case 'comida':
