@@ -26,7 +26,7 @@
                                 <a class="nav-link" href="web.php">Platos</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/reservaciones/index.php">Inicia sesión</a>
+                            <a class="nav-link" href="./reservaciones/index.php">Iniciar sesión</a>
                             </li>
                         </ul>
                     </div>
