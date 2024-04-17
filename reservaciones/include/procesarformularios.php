@@ -27,7 +27,6 @@ function procesarFormulario($tabla)
 
             case 'inicio':
                 $titulo_inicio = $_POST['titulo_inicio'];
-                $texto_inicio = $_POST['texto_inicio'];
                 $descripcion_inicio = $_POST['descripcion_inicio'];
 
                 $target_dir = "uploads/";
@@ -36,7 +35,7 @@ function procesarFormulario($tabla)
                 $target_file = $target_dir . $unique_filename;
                 move_uploaded_file($_FILES["imagen_inicio"]["tmp_name"], $target_file);
 
-                $sql = "INSERT INTO inicio (titulo, texto, imagen, descripcion) VALUES ('$titulo_inicio', '$texto_inicio', '$target_file', '$descripcion_inicio')";
+                $sql = "INSERT INTO inicio (titulo, imagen, descripcion) VALUES ('$titulo_inicio', '$target_file', '$descripcion_inicio')";
                 $conexion->query($sql);
                 echo "Registro insertado correctamente.";
                 break;

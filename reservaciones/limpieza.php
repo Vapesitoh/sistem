@@ -58,7 +58,7 @@ if ($rolUsuario !== 'Administrador') {
                             <table id="tabla-habitaciones" class="table align-items-center mb-0">
                                 <thead>
                                     <tr>
-                                        <th class="strong-black-text text-center">ID habitacion</th>
+                                        <th class="strong-black-text text-center">Numero de habitación</th>
                                         <th class="strong-black-text text-center">Acción</th>
                                         <th class="strong-black-text text-center">Finalizar Tarea</th> <!-- Nueva columna para el botón de finalizar -->
                                     </tr>
@@ -189,8 +189,8 @@ if ($rolUsuario !== 'Administrador') {
                 var habitacion = $(this).data('habitacion');
 
                 Swal.fire({
-                    title: '¿Estás seguro de finalizar la limpieza?',
-                    text: 'Esta acción finalizará la limpieza de la habitación seleccionada.',
+                    title: '¿Estás seguro de finalizar la actividad?',
+                    text: 'Esta acción finalizará la actividad de la habitación seleccionada.',
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
@@ -225,7 +225,7 @@ if ($rolUsuario !== 'Administrador') {
                                 Swal.fire({
                                     title: 'Error',
                                     icon: 'error',
-                                    text: 'Hubo un error al finalizar la limpieza.'
+                                    text: 'Hubo un error al finalizar la actividad.'
                                 });
                             }
                         });

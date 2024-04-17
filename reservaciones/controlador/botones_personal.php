@@ -54,7 +54,7 @@ function finalizarLimpieza($conexion, $habitacion_id) {
     $resultado_tarea_pendiente = mysqli_stmt_get_result($stmt);
 
     if (mysqli_num_rows($resultado_tarea_pendiente) == 0) {
-        echo json_encode(array("status" => "error", "message" => "No se puede finalizar la limpieza porque no existe una tarea pendiente para esta habitación."));
+        echo json_encode(array("status" => "error", "message" => "No se puede finalizar la actividad porque no existe una tarea pendiente para esta habitación."));
         return;
     }
 
@@ -67,7 +67,7 @@ function finalizarLimpieza($conexion, $habitacion_id) {
     $resultado_update_tarea = mysqli_stmt_execute($stmt);
 
     if ($resultado_update_tarea) {
-        echo json_encode(array("status" => "success", "message" => "Limpieza finalizada correctamente."));
+        echo json_encode(array("status" => "success", "message" => "Actividad finalizada correctamente."));
     } else {
         echo json_encode(array("status" => "error", "message" => "Hubo un error al finalizar la limpieza de la habitación."));
     }

@@ -71,10 +71,10 @@
                     </h4>
                     <div class="contact_link_box">
                         <a href="">
-                            <i class="fa fa-map-marker" aria-hidden="true"></i>
-                            <span>
-                                Ubicación del Centro Turístico Cascada San Mateo
-                            </span>
+                            <i class="fa fa-map-marker" aria-hidden="false"></i>
+                            <p>
+                               Estamos ubicados del Centro Turístico Cascada San Mateo
+                        </p>
                         </a>
                         <a href="https://wa.link/lubcuz">
                             <i class="fa fa-phone" aria-hidden="true"></i>

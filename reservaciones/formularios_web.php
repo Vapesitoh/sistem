@@ -119,11 +119,7 @@ if ($rolUsuario != 'Empleado') {
                 <input type="text" name="titulo_inicio" class="form-control" required>
             </div>
 
-            <div class="form-group">
-                <label for="texto_inicio" class="text-sm text-light">Texto:</label>
-                <textarea name="texto_inicio" class="form-control" required></textarea>
-            </div>
-
+          
             <div class="form-group">
                 <label for="imagen_inicio" class="text-sm text-light">Imagen:</label>
                 <input type="file" name="imagen_inicio" class="form-control-file" accept="image/*" required>

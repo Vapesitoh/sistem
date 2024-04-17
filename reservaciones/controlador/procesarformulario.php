@@ -29,8 +29,8 @@ function procesarFormulario($accion)
             }
 
             // Insertar datos en la base de datos
-            $sql = "INSERT INTO habitaciones (titulo, descripcion, foto1, foto2, foto3, precio, tipo, camas, mascotas, banos) 
-                    VALUES ('$titulo', '$descripcion', '$target_files[0]', '$target_files[1]', '$target_files[2]', '$precio', '$tipo_habitacion', '$numero_camas', '$mascotas', '$bano')";
+            $sql = "INSERT INTO habitaciones (titulo, descripcion, foto1, precio, tipo, camas, mascotas, banos) 
+                    VALUES ('$titulo', '$descripcion', '$target_files[0]', '$precio', '$tipo_habitacion', '$numero_camas', '$mascotas', '$bano')";
             if ($conexion->query($sql) === TRUE) {
                 echo "Registro insertado correctamente.";
             } else {

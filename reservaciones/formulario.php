@@ -56,16 +56,7 @@ if ($rolUsuario !== 'Administrador') {
                                 <label for="imagen1" class="text-sm text-light">Imagen 1:</label>
                                 <input type="file" name="imagen1" class="form-control-file" accept="image/*" required>
                             </div>
-                          
-                            <div class="form-group">
-                                <label for="imagen2" class="text-sm text-light">Imagen 2:</label>
-                                <input type="file" name="imagen2" class="form-control-file" accept="image/*">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="imagen3" class="text-sm text-light">Imagen 3:</label>
-                                <input type="file" name="imagen3" class="form-control-file" accept="image/*">
-                            </div>
+                      
                             <div class="form-group">
                                 <label for="titulo_habitacion" class="text-sm text-light">Título:</label>
                                 <input type="text" name="titulo" class="form-control" required>
