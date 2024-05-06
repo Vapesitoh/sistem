@@ -341,7 +341,7 @@ while ($row_seccion = mysqli_fetch_assoc($result_seccion)) {
 
 
     <div class="container">
-        <h2 style="font-size: 36px; font-weight: bold; color: #333;">Bienvenido a al Centro turístico San Mateo</h2>
+        <h2 style="font-size: 36px; font-weight: bold; color: #333;">Bienvenido al Centro turístico San Mateo</h2>
         <p style="font-size: 18px; color: #666; ">¡Bienvenido al portal web del Centro turístico San Mateo!</p>
         <p style="font-size: 18px; color: #666; ">Ubicado en un entorno natural impresionante, Las Naves te ofrece una experiencia única llena de aventura, relajación y descubrimiento.</p>
         <p style="font-size: 18px; color: #666; ">Descubre nuestras magníficas cascadas, explora nuestros senderos rodeados de exuberante vegetación y disfruta de la tranquilidad de nuestros rincones especiales.</p>
