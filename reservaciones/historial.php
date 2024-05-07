@@ -53,7 +53,6 @@ if ($rolUsuario !== 'Cliente') {
                                         <th class="text-center">Tipo de Habitación</th>
                                         <th class="text-center">Fecha de Reservación</th>
                                         <th class="text-center">Fecha de Entrega</th>
-                                        <th hidden class="text-center">Precio</th>
                                         <th class="text-center">Estado</th>
                                         <th class="text-center">Valor total</th>
                                     </tr>
@@ -93,7 +92,6 @@ if ($rolUsuario !== 'Cliente') {
                         row.append($('<td class="text-center">').text(reservacion.tipo_habitacion));
                         row.append($('<td class="text-center">').text(reservacion.fecha_reservacion));
                         row.append($('<td class="text-center">').text(reservacion.fecha_entrega));
-                        row.append($('<td hidden class="text-center">').text(reservacion.precio));
                         row.append($('<td class="text-center">').text(estadoTexto));
                         row.append($('<td class="text-center">').text(reservacion.valor_total));
                         tableBody.append(row);
