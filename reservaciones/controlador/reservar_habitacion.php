@@ -22,7 +22,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Obtener otros datos del formulario
         $habitacion_id = $_POST['numero'];
         $tipo_habitacion = $_POST['tipo'];
-        $precio = $_POST['precio'];
         $fecha_reservacion = date('Y-m-d H:i:s', strtotime($_POST['fecha_reservacion']));
         $fecha_entrega = date('Y-m-d H:i:s', strtotime($_POST['fecha_entrega']));
         $metodo_pago = $_POST['metodo_pago'];
@@ -53,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $ruta_deposito = str_replace('../', '', $ruta_archivo);
 
                 // Insertar los datos de la reserva en la tabla 'reservacion'
-                $sql_insert_reservacion = "INSERT INTO reservacion (habitacion_id, usuario_id, nombre_usuario, numero_telefono, cedula, precio, tipo_habitacion, fecha_reservacion, fecha_entrega, pago, deposito, estado, valor_total, adultos, niños) VALUES ('$habitacion_id', '$usuario_id', '$nombre_usuario', '$numero_telefono', '$cedula', '$precio', '$tipo_habitacion', '$fecha_reservacion', '$fecha_entrega', '$metodo_pago', '$ruta_deposito', '$estado_reserva', '$precio_total', '$adultos', '$niños')";
+                $sql_insert_reservacion = "INSERT INTO reservacion (habitacion_id, usuario_id, nombre_usuario, numero_telefono, cedula, tipo_habitacion, fecha_reservacion, fecha_entrega, pago, deposito, estado, valor_total, adultos, niños) VALUES ('$habitacion_id', '$usuario_id', '$nombre_usuario', '$numero_telefono', '$cedula', '$tipo_habitacion', '$fecha_reservacion', '$fecha_entrega', '$metodo_pago', '$ruta_deposito', '$estado_reserva', '$precio_total', '$adultos', '$niños')";
 
                 // Ejecutar la consulta de inserción de la reserva
                 if (mysqli_query($conexion, $sql_insert_reservacion)) {
@@ -72,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         } else {
             // Insertar los datos de la reserva en la tabla 'reservacion' sin procesar la carga de la imagen
-            $sql_insert_reservacion = "INSERT INTO reservacion (habitacion_id, usuario_id, nombre_usuario, numero_telefono, cedula, precio, tipo_habitacion, fecha_reservacion, fecha_entrega, pago, estado, valor_total, adultos, niños) VALUES ('$habitacion_id', '$usuario_id', '$nombre_usuario', '$numero_telefono', '$cedula', '$precio', '$tipo_habitacion', '$fecha_reservacion', '$fecha_entrega', '$metodo_pago', '$estado_reserva', '$precio_total', '$adultos', '$niños')";
+            $sql_insert_reservacion = "INSERT INTO reservacion (habitacion_id, usuario_id, nombre_usuario, numero_telefono, cedula, tipo_habitacion, fecha_reservacion, fecha_entrega, pago, estado, valor_total, adultos, niños) VALUES ('$habitacion_id', '$usuario_id', '$nombre_usuario', '$numero_telefono', '$cedula', '$tipo_habitacion', '$fecha_reservacion', '$fecha_entrega', '$metodo_pago', '$estado_reserva', '$precio_total', '$adultos', '$niños')";
 
             // Ejecutar la consulta de inserción de la reserva
             if (mysqli_query($conexion, $sql_insert_reservacion)) {
