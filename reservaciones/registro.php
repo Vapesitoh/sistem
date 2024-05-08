@@ -70,10 +70,9 @@
                             </div>
                         </div>
                         <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
-                            <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden"
-                                style="">
+                            <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden">
                                 <span class="mask bg-gradient-primary opacity-6"></span>
-                                <h4  class="mt-5 text-white font-weight-bolder position-relative">"La atención es la nueva moneda"</h4>
+                                <h4 class="mt-5 text-white font-weight-bolder position-relative">"La atención es la nueva moneda"</h4>
                                 <p class="text-white position-relative">Cuanto más fácil parezca la escritura, más esfuerzo puso el escritor en el proceso.</p>
                             </div>
                         </div>
@@ -86,48 +85,47 @@
     <script src="./assets/js/core/popper.min.js"></script>
     <script src="./assets/js/core/bootstrap.min.js"></script>
     <script src="./assets/js/plugins/perfect-scrollbar.min.js"></script>
-   
     <script src="./assets/js/plugins/smooth-scrollbar.min.js"></script>
-<!-- Script para manejar el registro -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $('#registroForm').submit(function (e) {
-            e.preventDefault();
-            $.ajax({
-                type: 'POST',
-                url: 'include/registro.php',
-                data: $(this).serialize(),
-                success: function (response) {
-                    var data = JSON.parse(response);
-                    if (data.success) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: '¡Registro exitoso!',
-                            text: data.message,
-                            confirmButtonText: 'Aceptar'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                window.location.href = "registro.php";
-                            }
-                        });
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: data.message,
-                            confirmButtonText: 'Aceptar'
-                        });
+    <!-- Script para manejar el registro -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#registroForm').submit(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: 'include/registro.php',
+                    data: $(this).serialize(),
+                    success: function (response) {
+                        var data = JSON.parse(response);
+                        if (data.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: '¡Registro exitoso!',
+                                text: data.message,
+                                confirmButtonText: 'Aceptar'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href = "registro.php";
+                                }
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: data.message,
+                                confirmButtonText: 'Aceptar'
+                            });
+                        }
                     }
-                }
+                });
             });
         });
-    });
-</script>
-<!-- Botones de Github -->
-<script async defer src="https://buttons.github.io/buttons.js"></script>
-<!-- Control Center para Soft Dashboard: efectos de paralaje, scripts para las páginas de ejemplo, etc. -->
-<script src="./assets/js/argon-dashboard.min.js?v=2.0.4"></script>
+    </script>
+    <!-- Botones de Github -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!-- Control Center para Soft Dashboard: efectos de paralaje, scripts para las páginas de ejemplo, etc. -->
+    <script src="./assets/js/argon-dashboard.min.js?v=2.0.4"></script>
 </body>
 
 </html>
